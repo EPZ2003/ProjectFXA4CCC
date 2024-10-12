@@ -56,3 +56,11 @@ TextField --> txtF
 
 if you add another objec than this above --> write into the read me to update the namming format part
 
+## Commit-Push Rule
+
+You have to respect this format for the commit message --> prefix of the ticket
+ex : 
+
+the title ticket is A1 - SceneBuilder set HomePage 
+
+you're commit must be A1 - SceneBuilder set HomePage
