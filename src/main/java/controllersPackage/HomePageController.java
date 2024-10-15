@@ -30,7 +30,13 @@ public class HomePageController implements LoadindFXML {
     private Button btnPage3;
 
     @FXML
-    private Label lblHomePAge;
+    private Label lblInfo;
+
+    @FXML
+    private Label lblInfo2;
+
+    @FXML
+    private Label lblWelcome;
 
     public void goToFirstPage(ActionEvent event) {
         loadingFXML("firstPage.fxml",event);
