@@ -1,11 +1,13 @@
 package SQLModule;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Queries  {
     static final String TABLE_PRODUCT = "projetjavafx.table_products";
     static final String TABLE_PRODUCT_PRICES = "projetjavafx.table_products_prices" ;
     static final String TABLE_MONEY = "projetjavafx.table_money" ;
+
     //Use to know which table are related to the query
     private String tableName = "projetjavafx.table_money";
 
@@ -159,13 +161,38 @@ public class Queries  {
         else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue;
         else return "";
     }
+
+    //TODO readTable
+    public String read (){
+        if (this.getTableName() == Queries.TABLE_PRODUCT )return " select * from "+this.getTableName() +" where id = "+this.getId();
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName() +" where id_products = "+this.getIdProducts();
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName();
+        else return "";
+    }
     //TODO HYPER IMPO A21 - Emeric Maybe
-    public void updateTable(){
+    public void updateQueries(){
 
     }
-    //TODO readTable
-    public static String readTable(){
-        return "select * from projetjavafx.tableproducts";
+    public ArrayList<String> getColumn(){
+        ArrayList<String> list = new ArrayList<String>();
+        if (this.getTableName() == Queries.TABLE_PRODUCT ){
+            list.add("id");
+            list.add("product_name");
+            list.add("stock");
+        }
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ){
+            list.add("idProducts");
+            list.add("discount");
+            list.add("sellPrice");
+            list.add("purchasePrice");
+        }
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) {
+            list.add("capital");
+            list.add("income");
+            list.add("outcome");
+        }
+
+        return list;
     }
 
 }
