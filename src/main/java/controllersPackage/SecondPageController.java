@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SecondPageController implements LoadindFXML {
@@ -29,13 +30,13 @@ public class SecondPageController implements LoadindFXML {
     private Label lblStorage;
 
     @FXML
-    private Label lblCapital;
+    private TextField txtFCapital;
 
     @FXML
-    private Label lblOutcome;
+    private TextField txtFOutcome;
 
     @FXML
-    private Label lblIncome;
+    private TextField txtFIncome;
 
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);

@@ -11,9 +11,9 @@
       <Label layoutX="164.0" layoutY="150.0" text="Capital" />
       <Label layoutX="140.0" layoutY="204.0" text="Global outcome" />
       <Label layoutX="144.0" layoutY="261.0" text="Global income" />
-      <TextField fx:id="lblCapital" layoutX="274.0" layoutY="146.0" />
-      <TextField fx:id="lblOutcome" layoutX="274.0" layoutY="200.0" />
-      <TextField fx:id="lblIncome" layoutX="274.0" layoutY="257.0" />
+      <TextField fx:id="txtFCapital" layoutX="274.0" layoutY="146.0" />
+      <TextField fx:id="txtFOutcome" layoutX="274.0" layoutY="200.0" />
+      <TextField fx:id="txtFIncome" layoutX="274.0" layoutY="257.0" />
       <Button fx:id="btnHomePage" layoutX="391.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToHomePage" text="HomePage" />
       <Button fx:id="btnPage1" layoutX="473.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToFirstPage" text="Page 1" />
       <Button fx:id="btnPage3" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToThirdPage" text="Page 3" />
