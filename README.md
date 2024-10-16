@@ -64,3 +64,12 @@ the title ticket is A1 - SceneBuilder set HomePage
 
 you're commit must be A1 - SceneBuilder set HomePage
 
+## Commit-Push Rule
+
+You have to respect this format for the commit message --> prefix of the ticket
+ex : 
+
+the title ticket is A1 - SceneBuilder set HomePage 
+
+you're commit must be A1 - SceneBuilder set HomePage
+
