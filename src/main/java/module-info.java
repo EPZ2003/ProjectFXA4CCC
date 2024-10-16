@@ -6,6 +6,7 @@ module com.example.projectjavafx {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires mysql.connector.j;
 
 
     opens com.example.projectjavafx to javafx.fxml;
