@@ -28,6 +28,15 @@ public class SecondPageController implements LoadindFXML {
     @FXML
     private Label lblStorage;
 
+    @FXML
+    private Label lblCapital;
+
+    @FXML
+    private Label lblOutcome;
+
+    @FXML
+    private Label lblIncome;
+
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
     }
