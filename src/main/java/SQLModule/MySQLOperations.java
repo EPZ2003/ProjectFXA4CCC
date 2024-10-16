@@ -8,14 +8,14 @@ public class MySQLOperations {
     static final String USER = "root";
     static final String PASS = "1234";
 
-    public static void add(Queries sql){
+    public static void addRow(Queries sql){
         try{
             if (sql.getTableName() == Queries.TABLE_MONEY){
                 throw new Exception("Bad table");
             }
 
             Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            PreparedStatement preparedStatement = conn.prepareStatement(sql.add());
+            PreparedStatement preparedStatement = conn.prepareStatement(sql.addRow());
             preparedStatement.execute();
             preparedStatement.close();
 
