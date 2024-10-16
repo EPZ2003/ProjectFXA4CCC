@@ -147,7 +147,6 @@ public class Queries  {
 
     }
     //TODO :
-
     /**
      * Spec :
      * 1- Pouvoir Update une colonne de nimporte quelle Table (3 diff)

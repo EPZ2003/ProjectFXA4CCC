@@ -8,7 +8,6 @@ module com.example.projectjavafx {
     requires java.sql;
     requires mysql.connector.j;
 
-
     opens com.example.projectjavafx to javafx.fxml;
     exports com.example.projectjavafx;
 

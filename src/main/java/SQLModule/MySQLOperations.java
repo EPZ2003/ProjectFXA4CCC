@@ -84,6 +84,5 @@ public class MySQLOperations {
         } catch (Exception error) {
             System.out.println("Error : "+error);
         }
-
     }*/
 }
