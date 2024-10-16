@@ -54,7 +54,6 @@ TextArea --> txtA
 
 TextField --> txtF
 
-if you add another object than this above --> write into the read me to update the naming format part
 
 ## Commit-Push Rule
 
@@ -64,7 +63,6 @@ ex :
 the title ticket is A1 - SceneBuilder set HomePage 
 
 you're commit must be A1 - SceneBuilder set HomePage
-
 
 ## Commit-Push Rule
 
