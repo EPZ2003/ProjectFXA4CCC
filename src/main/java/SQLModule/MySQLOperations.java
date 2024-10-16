@@ -49,15 +49,13 @@ public class MySQLOperations {
 
 
     }
-    /*
-    public void update() throws SQLException{
-        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
-        PreparedStatement preparedStatement = conn.prepareStatement(update);
 
-        preparedStatement.setString(1,Queries.toString((queri.getStock()) - 1));
-        preparedStatement.setString(2,Queries.toString(queri.getId()));
+    public static <T> void update(Queries sql,T changeValue, String columName) throws SQLException{
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        PreparedStatement preparedStatement = conn.prepareStatement(sql.udpate(changeValue,columName));
         preparedStatement.execute();
-    }*/
+        preparedStatement.close();
+    }
 
     /*public void readAll() throws SQLException{
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -70,18 +68,20 @@ public class MySQLOperations {
     }*/
     public static void main(String[] args) {
         // Open a connection
+        //Table table_products
         Queries sql = new Queries(3,"pants",34);
+        //Table table_products_prices
         Queries sql2 = new Queries(10,0.34,34.3,23.1);
-        MySQLOperations.add(sql2);
-        MySQLOperations.delete(sql);
-        try {
-        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-
+        //Table table_money
+        Queries sql3 = new Queries(3.01,23.03,21.93);
+        try{
+            //MySQLOperations.add(sql2);
+            //MySQLOperations.add(sql);
+            //MySQLOperations.update(sql3,34.01,"capital");
+            //MySQLOperations.update(sql,3943,"stock");
+        } catch (Exception error) {
+            System.out.println("Error : "+error);
         }
-        // Handle any errors that may have occurred.
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 }

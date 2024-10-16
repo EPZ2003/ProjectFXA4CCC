@@ -37,6 +37,13 @@ public class Queries  {
         this.tableName   = "projetjavafx.table_products_prices";
     }
 
+    //Constructor for tavble : table_Money
+    public Queries (Double capital,Double income, Double outcome){
+        this.capital = capital;
+        this.income = income;
+        this.outcome = outcome;
+    }
+
     public String getTableName() {
         return tableName;
     }
@@ -125,7 +132,7 @@ public class Queries  {
         this.id = id;
     }
 
-    //TODO : ADD
+
     public String add () {
         if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (id,product_name,stock) values ("+this.getId()+","+"'"+this.getProductName()+"'"+","+this.getStock()+")";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (idProducts,discount,sellPrice,purchasePrice) values ("+this.getIdProducts()+"," +this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
@@ -137,14 +144,28 @@ public class Queries  {
         else return "";
 
     }
-    public static String udpate (int id) {
-        return " update projetjavafx.tableproducts set stock = ? where id = ?";
+    //TODO :
+
+    /**
+     * Spec :
+     * 1- Pouvoir Update une colonne de nimporte quelle Table (3 diff)
+     * 2 - update nombre de colonne qu'on veut
+     * 3 - Il faut que la méthode soit static
+     * 4 - Ne pas oublier de Géré les cas spéciaux (Si c'est possible) et throw une ERREUR
+     */
+    public <T> String udpate (T changeValue,String columnName) {
+        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue +" where id = "+this.getId()+";";
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue +" where id_products = "+this.getIdProducts()+";";
+        else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue;
+        else return "";
     }
+    //TODO HYPER IMPO A21 - Emeric Maybe
+    public void updateTable(){
+
+    }
+    //TODO readTable
     public static String readTable(){
         return "select * from projetjavafx.tableproducts";
     }
 
-    public static String toString(int item){
-        return String.valueOf(item);
-    }
 }
