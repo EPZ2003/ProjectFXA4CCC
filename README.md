@@ -54,7 +54,6 @@ TextArea --> txtA
 
 TextField --> txtF
 
-if you add another objec than this above --> write into the read me to update the namming format part
 
 ## Commit-Push Rule
 
