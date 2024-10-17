@@ -1,11 +1,10 @@
-package WomenShopClasses;
+package ItemPackage;
 
 import SQLModule.MySQLOperations;
 import SQLModule.Queries;
+import WomenShopClasses.Product;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListItem {
 
