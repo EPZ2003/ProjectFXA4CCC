@@ -1,6 +1,8 @@
 package com.example.projectjavafx;
 
 import BackToFrontLinked.PipelineProductListQueries;
+import SQLModule.MySQLOperations;
+import SQLModule.Queries;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -22,10 +24,11 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            //TEST
-            //Product newClothe = new Clothes("adadas",23.04,342.02,45.00);
-            //Product newAcc = new Accessory("col",34.03,323.32);
-            //PipelineProductListQueries.PipelineProductListQueries(newAcc);
+
+//TEST A-23
+            /*PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
+            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);*/
+
 
         } catch (Exception e) {
             System.out.println(e);
@@ -33,6 +36,9 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
+
+
         launch();
     }
 }
