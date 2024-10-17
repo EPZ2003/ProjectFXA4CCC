@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class SecondPageController implements LoadindFXML {
@@ -27,6 +28,15 @@ public class SecondPageController implements LoadindFXML {
 
     @FXML
     private Label lblStorage;
+
+    @FXML
+    private TextField txtFCapital;
+
+    @FXML
+    private TextField txtFOutcome;
+
+    @FXML
+    private TextField txtFIncome;
 
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
@@ -50,4 +60,5 @@ public class SecondPageController implements LoadindFXML {
             System.out.println("Error during loading : "+ e);
         }
     }
+
 }
