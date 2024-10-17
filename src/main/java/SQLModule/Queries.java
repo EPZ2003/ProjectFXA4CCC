@@ -14,6 +14,7 @@ public class Queries  {
     //For table : tableproducts
     private int id,stock;
     private String productName;
+    private Double specialAttribute;
 
     //For table : money
     private Double capital,income,outcome;
@@ -23,10 +24,11 @@ public class Queries  {
     private Double discount,sellPrice,purchasePrice;
 
     //Constructor for table :  table_products
-    public Queries (int id,String productName,int stock) {
+    public Queries (int id,String productName,int stock, Double specialAttribute) {
         this.id = id;
         this.productName = productName;
         this.stock = stock;
+        this.specialAttribute = specialAttribute;
         this.tableName = "projetjavafx.table_products";
     }
 
@@ -44,6 +46,14 @@ public class Queries  {
         this.capital = capital;
         this.income = income;
         this.outcome = outcome;
+    }
+
+    public Double getSpecialAttribute() {
+        return specialAttribute;
+    }
+
+    public void setSpecialAttribute(Double specialAttribute) {
+        this.specialAttribute = specialAttribute;
     }
 
     public String getTableName() {
@@ -136,7 +146,7 @@ public class Queries  {
 
 
     public String addRow () {
-        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (id,product_name,stock) values ("+this.getId()+","+"'"+this.getProductName()+"'"+","+this.getStock()+")";
+        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (id,product_name,stock,specialAttribute) values ("+this.getId()+","+"'"+this.getProductName()+"'"+","+this.getStock()+","+this.getSpecialAttribute()+")";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (idProducts,discount,sellPrice,purchasePrice) values ("+this.getIdProducts()+"," +this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
         else return "";
     }
@@ -165,7 +175,7 @@ public class Queries  {
     public String read (){
         if (this.getTableName() == Queries.TABLE_PRODUCT )return " select * from "+this.getTableName() +" where id = "+this.getId();
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName() +" where id_products = "+this.getIdProducts();
-        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName();
+        else if (this.getTableName() == Queries.TABLE_MONEY ) return " select * from " +this.getTableName();
         else return "";
     }
     //TODO HYPER IMPO A21 - Emeric Maybe
@@ -178,6 +188,7 @@ public class Queries  {
             list.add("id");
             list.add("product_name");
             list.add("stock");
+            list.add("specialAttribute");
         }
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ){
             list.add("idProducts");

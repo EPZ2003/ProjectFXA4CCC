@@ -5,6 +5,7 @@ public class Clothes extends Product{
 
     public Clothes(String name, Double purchasePrice, Double sellPrice, Double size) {
         super(name, purchasePrice, sellPrice);
+        super.numberTotal ++;
         if (34 > size || size > 54)
         {Product.setNumberTotal(Product.getNumberTotal()-1);
             throw new IllegalArgumentException("Wrong size !");}

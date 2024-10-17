@@ -67,20 +67,20 @@ public class MySQLOperations {
     /*public static void main(String[] args) {
         // Open a connection
         //Table table_products
-        Queries sql1 = new Queries(3,"pants",34);
+        Queries sql1 = new Queries(3000,"pants",34);
 
         //Table table_products_prices
-        Queries sql2 = new Queries(10,0.34,34.3,23.1);
+        Queries sql2 = new Queries(145,0.34,34.3,23.1);
         //Table table_money
         Queries sql3 = new Queries(3.01,23.03,21.93);
 
         try{
             //MySQLOperations.add(sql2);
-            //MySQLOperations.add(sql1);
+            //MySQLOperations.addRow(sql1);
             //MySQLOperations.update(sql3,34.01,"capital");
             //MySQLOperations.update(sql1,3943,"stock");
 
-            //System.out.println(MySQLOperations.read(sql1));
+            System.out.println(MySQLOperations.read(sql1));
         } catch (Exception error) {
             System.out.println("Error : "+error);
         }

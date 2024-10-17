@@ -4,6 +4,7 @@ public class Accessory extends Product {
 
     public Accessory(String name, Double purchasePrice, Double sellPrice) {
         super(name, purchasePrice, sellPrice);
+        super.numberTotal ++;
     }
 
     @Override
