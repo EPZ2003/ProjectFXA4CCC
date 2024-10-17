@@ -71,7 +71,8 @@ ___
 create table table_products (
 id int primary key,
 product_name varchar(100),
-stock int
+stock int,
+specialAttribute double
 );
 
 create table table_products_prices (
