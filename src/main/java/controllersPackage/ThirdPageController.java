@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.nio.channels.Pipe;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ThirdPageController implements LoadindFXML {
     }
 
     @FXML
-    public void handleBuyButtonClick() {
+    public void handleBuyButtonClick() throws SQLException {
         // Récupérer l'élément sélectionné dans la ListView
         ArrayList<String> selectedProduct = (ArrayList<String>)lstVprices.getSelectionModel().getSelectedItem();
 
@@ -109,16 +110,19 @@ public class ThirdPageController implements LoadindFXML {
         }
     }
 
-    public void purchaseItem(ArrayList<String> selectedProduct)
+    public void purchaseItem(ArrayList<String> selectedProduct) throws SQLException
     {
             int id = Integer.valueOf(selectedProduct.get(0));
             for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
             {
+
                 if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
                 {
-                    PipelineProductListQueries.listQueriesTableProductPrices.get(i).setStock(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock() + 1 );
-                    PipelineProductListQueries.listQueriesTableMoney.get(0).setOutcome(PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice());
-                    PipelineProductListQueries.listQueriesTableMoney.get(0).setCapital(PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice());
+                    MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i), PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock()+1,"stock");
+                    //System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock());
+                    //PipelineProductListQueries.listQueriesTableProductPrices.get(i).setStock(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock() + 1 );
+                    //PipelineProductListQueries.listQueriesTableMoney.get(0).setOutcome(PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice());
+                    //PipelineProductListQueries.listQueriesTableMoney.get(0).setCapital(PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice());
                 }
             }
     }
