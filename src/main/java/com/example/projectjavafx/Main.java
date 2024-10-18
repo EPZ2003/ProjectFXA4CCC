@@ -13,13 +13,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-//to do : Enlever purchasePrice et sellPrice de l'affichage de page 1
+import java.util.ArrayList;
+
 
 public class Main extends Application {
-
+    ArrayList<Queries> test = PipelineProductListQueries.listQueriesTableProduct;
     @Override
     public void start(Stage stage) {
         try{
+            PipelineProductListQueries.InitializeAllList();
             String homePagePath = "/controllersPackage/homePage.fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homePagePath));
             Parent root = loader.load();
@@ -28,8 +30,9 @@ public class Main extends Application {
             stage.show();
 
 //TEST A-23
-            PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
-            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
+            PipelineProductListQueries.PipelineProductListQueries(new Shoes("poeoepeeppe",34.01,32.02,40.5));
+            //Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
+            //System.out.println(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.getLast()));
 
 
         } catch (Exception e) {
