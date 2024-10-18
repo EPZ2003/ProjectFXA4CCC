@@ -12,10 +12,14 @@ import java.util.ArrayList;
 public class PipelineProductListQueries {
     public static ArrayList<Queries> listQueriesTableProduct = new ArrayList<Queries>();
     public static ArrayList<Queries> listQueriesTableProductPrices = new ArrayList<Queries>();
-    public static ArrayList<Queries> listQueriesTableMoney  = new ArrayList<Queries>();
+    public static ArrayList<Queries> listQueriesTableMoney = new ArrayList<Queries>();
 
+    public static void InitializeAllList() throws SQLException{
+        listQueriesTableProduct = MySQLOperations.readTableProduct();
+        listQueriesTableProductPrices = MySQLOperations.readTableProductPrices();
+        listQueriesTableMoney = MySQLOperations.readTableMoney();
+    }
     //Initialize table_Money;
-
     private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
     //Have to be called in initilized

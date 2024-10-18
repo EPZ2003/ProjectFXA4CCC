@@ -73,6 +73,37 @@ public class MySQLOperations {
         return row;
     }
 
+    public static ArrayList<Queries> readTableProduct() throws SQLException{
+        ArrayList<Queries> listToReturn = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_products");
+        while (rs.next()){
+            listToReturn.add (new Queries(rs.getString("product_name"),rs.getInt("stock"),rs.getDouble("specialAttribute")) );
+        }
+        return listToReturn;
+    }
+    public static ArrayList<Queries> readTableProductPrices() throws SQLException{
+        ArrayList<Queries> listToReturn = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_products_prices");
+        while (rs.next()){
+            listToReturn.add (new Queries(rs.getFloat("discount"),rs.getDouble("sellPrice"),rs.getDouble("purchasePrice")) );
+        }
+        return listToReturn;
+    }
+    public static ArrayList<Queries> readTableMoney() throws SQLException{
+        ArrayList<Queries> listToReturn = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
+        while (rs.next()){
+            listToReturn.add (new Queries(rs.getFloat("capital"),rs.getDouble("income"),rs.getDouble("outcome")) );
+        }
+        return listToReturn;
+    }
+
     public static void readLastId(Queries sql) throws SQLException{
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
