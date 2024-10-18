@@ -1,6 +1,8 @@
 package controllersPackage;
 
+import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
+import SQLModule.MySQLOperations;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -16,8 +18,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static BackToFrontLinked.PipelineProductListQueries.PipelineProductListQueries;
 
 public class ThirdPageController implements LoadindFXML {
 
@@ -43,7 +48,7 @@ public class ThirdPageController implements LoadindFXML {
     private Label lblAccoutability;
 
     @FXML
-    private ListView<Product> lstVprices;
+    private ListView<List<String>> lstVprices;
 
     @FXML
     private ToggleButton tBtnDiscount;
@@ -74,25 +79,19 @@ public class ThirdPageController implements LoadindFXML {
         }
     }
 
-    public void initialize() {
-        List<Product> produits = new ArrayList<>();
-        produits.add(new Accessory("cora",49.99,59.99));
-        produits.add(new Shoes("balenciaga",499.99,759.99,42.5));
-        produits.add(new Clothes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("adidas",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        produits.add(new Clothes("newbalance",19.99,79.99,42.5));
-        produits.add(new Shoes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        ObservableList<Product> prods = FXCollections.observableArrayList(produits);
-
-        lstVprices.setItems(prods);
-        lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails(lstVprices.getSelectionModel().getSelectedItem()));
+    public void initialize() throws SQLException {
+        //System.out.println(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
+        //List<List<String>> prices = new ArrayList<>();
+        //PipelineProductListQueries(new Shoes("cora",49.99,59.99,28.0));
+        //prices.add(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
+        //ObservableList<List<String>> prods = FXCollections.observableArrayList(prices);
+        //lstVprices.setItems(prods);
+        //lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails(lstVprices.getSelectionModel().getSelectedItem()));
     }
 
-    private void displayProductDetails(Product selectedProduct) {
+    private void displayProductDetails(List<String> selectedProduct) {
         if(selectedProduct!=null){
-            txtAPriceInfo.setText("nom : "+selectedProduct.getName()+"\nprix d'achat : "+selectedProduct.getPurchasePrice()+"\nprix de vente : "+selectedProduct.getSellPrice()+"\nquantité : "+selectedProduct.getNbItems());
+            txtAPriceInfo.setText("id : "+selectedProduct.get(0)+"\nréduction : "+selectedProduct.get(1)+"\nprix de vente : "+selectedProduct.get(2)+"\nprix d'achat : "+selectedProduct.get(3));
         }
     }
 }
