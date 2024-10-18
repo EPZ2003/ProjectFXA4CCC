@@ -28,8 +28,8 @@ public class Main extends Application {
             stage.show();
 
 //TEST A-23
-            /*PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
-            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);*/
+            PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
+            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
 
 
         } catch (Exception e) {
