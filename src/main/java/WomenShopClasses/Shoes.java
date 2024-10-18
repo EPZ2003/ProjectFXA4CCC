@@ -5,6 +5,7 @@ public class Shoes extends Product {
 
     public Shoes(String name, Double purchasePrice, Double sellPrice, Double shoeSize) {
         super(name, purchasePrice, sellPrice);
+        super.numberTotal ++;
         if (36 > shoeSize || shoeSize > 50)
         {Product.setNumberTotal(Product.getNumberTotal()-1);
             throw new IllegalArgumentException("Wrong shoe size !");

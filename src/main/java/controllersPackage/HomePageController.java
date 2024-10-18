@@ -71,7 +71,7 @@ public class HomePageController implements LoadindFXML {
         jpdt.add(Nike);
         jpdt.add(jewelery);
         jpdt.add(Dolshigatana);
-        System.out.println("jpdt : " + jpdt);
+        //System.out.println("jpdt : " + jpdt);
 
     }
 }

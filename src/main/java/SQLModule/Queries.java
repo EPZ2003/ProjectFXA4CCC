@@ -14,24 +14,27 @@ public class Queries  {
     //For table : tableproducts
     private int id,stock;
     private String productName;
+    private Double specialAttribute;
 
     //For table : money
     private Double capital,income,outcome;
 
     //For table : products_prices
     private int idProducts;
-    private Double discount,sellPrice,purchasePrice;
+    private Double sellPrice,purchasePrice;
+    private float discount;
 
     //Constructor for table :  table_products
-    public Queries (int id,String productName,int stock) {
+    public Queries (String productName,int stock, Double specialAttribute) {
         this.id = id;
         this.productName = productName;
         this.stock = stock;
+        this.specialAttribute = specialAttribute;
         this.tableName = "projetjavafx.table_products";
     }
 
     //Constructor for table :  table_products_prices
-    public Queries (int idProducts,Double discount,Double sellPrice,Double purchasePrice) {
+    public Queries (float discount,Double sellPrice,Double purchasePrice) {
         this.idProducts = idProducts;
         this.discount = discount;
         this.sellPrice = sellPrice;
@@ -44,6 +47,14 @@ public class Queries  {
         this.capital = capital;
         this.income = income;
         this.outcome = outcome;
+    }
+
+    public Double getSpecialAttribute() {
+        return specialAttribute;
+    }
+
+    public void setSpecialAttribute(Double specialAttribute) {
+        this.specialAttribute = specialAttribute;
     }
 
     public String getTableName() {
@@ -70,11 +81,11 @@ public class Queries  {
         this.sellPrice = sellPrice;
     }
 
-    public Double getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(float discount) {
         this.discount = discount;
     }
 
@@ -131,53 +142,43 @@ public class Queries  {
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
-
     public String addRow () {
-        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (id,product_name,stock) values ("+this.getId()+","+"'"+this.getProductName()+"'"+","+this.getStock()+")";
-        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (idProducts,discount,sellPrice,purchasePrice) values ("+this.getIdProducts()+"," +this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
+        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (product_name,stock,specialAttribute) values ("+"'"+this.getProductName()+"'"+","+this.getStock()+","+this.getSpecialAttribute()+")";
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (discount,sellPrice,purchasePrice) values ("+this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
         else return "";
     }
+
     public String delete () {
         if (this.getTableName() == Queries.TABLE_PRODUCT ) return " delete from "+this.getTableName()+" where id = "+this.getId()+";";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " delete from "+this.getTableName()+" where id = "+this.getIdProducts()+";";
         else return "";
-
     }
-    //TODO :
-    /**
-     * Spec :
-     * 1- Pouvoir Update une colonne de nimporte quelle Table (3 diff)
-     * 2 - update nombre de colonne qu'on veut
-     * 3 - Il faut que la méthode soit static
-     * 4 - Ne pas oublier de Géré les cas spéciaux (Si c'est possible) et throw une ERREUR
-     */
+
     public <T> String udpate (T changeValue,String columnName) {
-        if (this.getTableName() == Queries.TABLE_PRODUCT ) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue +" where id = "+this.getId()+";";
+        if (this.getTableName() == Queries.TABLE_PRODUCT )return " update "+this.getTableName()+" set "+columnName+"="+"'"+changeValue+"'" +" where id = "+this.getId()+";";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue +" where id_products = "+this.getIdProducts()+";";
         else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue;
         else return "";
     }
 
-    //TODO readTable
     public String read (){
         if (this.getTableName() == Queries.TABLE_PRODUCT )return " select * from "+this.getTableName() +" where id = "+this.getId();
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName() +" where id_products = "+this.getIdProducts();
-        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName();
+        else if (this.getTableName() == Queries.TABLE_MONEY ) return " select * from " +this.getTableName();
         else return "";
     }
-    //TODO HYPER IMPO A21 - Emeric Maybe
-    public void updateQueries(){
 
-    }
     public ArrayList<String> getColumn(){
         ArrayList<String> list = new ArrayList<String>();
         if (this.getTableName() == Queries.TABLE_PRODUCT ){
             list.add("id");
             list.add("product_name");
             list.add("stock");
+            list.add("specialAttribute");
         }
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ){
             list.add("idProducts");
@@ -193,5 +194,6 @@ public class Queries  {
 
         return list;
     }
+
 
 }

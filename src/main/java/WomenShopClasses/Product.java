@@ -3,7 +3,7 @@ package WomenShopClasses;
 public abstract class Product implements Discount, Comparable<Object> {
 
 private int id;
-private static int numberTotal = 1;
+protected static int numberTotal = 1;
 private String name;
 private Double purchasePrice;
 private Double sellPrice;
@@ -74,8 +74,6 @@ public int getId()
     {
         return nbItems;
     }
-
-
 
     public void setName(String name) {
         this.name = name;

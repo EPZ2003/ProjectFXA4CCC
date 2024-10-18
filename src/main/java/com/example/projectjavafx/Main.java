@@ -1,10 +1,19 @@
 package com.example.projectjavafx;
 
+import BackToFrontLinked.PipelineProductListQueries;
+import SQLModule.MySQLOperations;
+import SQLModule.Queries;
+import WomenShopClasses.Accessory;
+import WomenShopClasses.Clothes;
+import WomenShopClasses.Product;
+import WomenShopClasses.Shoes;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+//to do : Enlever purchasePrice et sellPrice de l'affichage de page 1
 
 public class Main extends Application {
 
@@ -17,12 +26,21 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
+//TEST A-23
+            /*PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
+            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);*/
+
+
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     public static void main(String[] args) {
+
+
+
         launch();
     }
 }
