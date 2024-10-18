@@ -29,9 +29,9 @@ public class Main extends Application {
 
 //TEST A-23
             PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
-            Queries test = PipelineProductListQueries.listQueriesTableProductPrices.get(0);
-            System.out.println(MySQLOperations.read(test));
-
+            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
+            Queries x = PipelineProductListQueries.listQueriesTableProductPrices.get(0);
+            System.out.println(MySQLOperations.read(x));
 
         } catch (Exception e) {
             System.out.println(e);
