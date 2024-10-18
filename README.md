@@ -54,5 +54,9 @@ TextArea --> txtA
 
 TextField --> txtF
 
+AnchorPane --> AP
+
+Pane --> Pane
+
 if you add another objec than this above --> write into the read me to update the namming format part
 
