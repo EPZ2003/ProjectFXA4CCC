@@ -181,7 +181,7 @@ public class Queries  {
             list.add("specialAttribute");
         }
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ){
-            list.add("idProducts");
+            list.add("id_products");
             list.add("discount");
             list.add("sellPrice");
             list.add("purchasePrice");
