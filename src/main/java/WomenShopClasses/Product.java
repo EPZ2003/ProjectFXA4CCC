@@ -75,8 +75,6 @@ public int getId()
         return nbItems;
     }
 
-
-
     public void setName(String name) {
         this.name = name;
     }
