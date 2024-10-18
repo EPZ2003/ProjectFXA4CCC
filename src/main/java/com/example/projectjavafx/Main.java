@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//to do : Enlever purchasePrice et sellPrice de l'affichage de page 1
+
 public class Main extends Application {
 
     @Override
