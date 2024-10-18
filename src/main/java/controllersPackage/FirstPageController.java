@@ -1,6 +1,8 @@
 package controllersPackage;
 
+import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
+import SQLModule.MySQLOperations;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -13,12 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-
+import static BackToFrontLinked.PipelineProductListQueries.PipelineProductListQueries;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +42,46 @@ public class FirstPageController implements LoadindFXML {
     private Label lblPrices;
 
     @FXML
-    public ListView<Product> lstVproduit;
+    private StackPane btn1;
 
     @FXML
-    private TextArea txtAVinfo;
+    private StackPane btn2;
+
+    @FXML
+    private StackPane btn3;
+
+    @FXML
+    public ListView<List<String>> lstVproduit;
+
+    @FXML
+    private Button btnLess;
+
+    @FXML
+    private Button btnAdd;
+
+    @FXML
+    private Button btnUpdate;
+
+    @FXML
+    private TextArea txtAinfo;
+
+    @FXML
+    private Button btnSubmit;
+
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private TextField txtFNouveauchamp;
+
+    @FXML
+    private AnchorPane APpopup;
+
+    @FXML
+    private ComboBox<String> cmbType;
+
+    @FXML
+    private Pane Panebackground;
 
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
@@ -67,25 +106,110 @@ public class FirstPageController implements LoadindFXML {
         }
     }
 
-    public void initialize() {
-        List<Product> produits = new ArrayList<>();
-        produits.add(new Accessory("cora",49.99,59.99));
-        produits.add(new Shoes("balenciaga",499.99,759.99,42.5));
-        produits.add(new Clothes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("adidas",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        produits.add(new Clothes("newbalance",19.99,79.99,42.5));
-        produits.add(new Shoes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        ObservableList<Product> prods= FXCollections.observableArrayList(produits);
+    @FXML
+    public void handleAddButtonClick() throws SQLException {
+        // Récupérer l'élément sélectionné dans la ListView
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
+        lstVproduit.getSelectionModel().getSelectionMode();
 
-        lstVproduit.setItems(prods);
-        lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails(lstVproduit.getSelectionModel().getSelectedItem()));
+        // Si un produit est sélectionné, appeler la méthode purchase
+        if (selectedProduct != null) {
+            AddItem(selectedProduct);
+            System.out.println("produit ajouté");
+        }}
+
+    @FXML
+    public void handleDeleteButtonClick() throws SQLException {
+        // Récupérer l'élément sélectionné dans la ListView
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
+
+        // Si un produit est sélectionné, appeler la méthode purchase
+        if (selectedProduct != null) {
+            DeleteItem(selectedProduct);
+            System.out.println("produit supprimer");
+        }}
+
+    public void AddItem(ArrayList<String> selectedProduct) throws SQLException
+    {
+        PipelineProductListQueries.InitializeAllList();
+        int id = Integer.valueOf(selectedProduct.get(0));
+        for (int i = 0; i < PipelineProductListQueries.listQueriesTableProduct.size() ; i++)
+        {
+            if (id == PipelineProductListQueries.listQueriesTableProduct.get(i).getIdProducts());
+            {
+                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1,"stock");
+                System.out.println(PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+" en stock");
+            }
+        }
     }
 
-    private void displayProductDetails(Product selectedProduct) {
-        if(selectedProduct!=null){
-            txtAVinfo.setText("nom : "+selectedProduct.getName()+"\nprix d'achat : "+selectedProduct.getPurchasePrice()+"\nprix de vente : "+selectedProduct.getSellPrice()+"\nquantité : "+selectedProduct.getNbItems());
+    public void DeleteItem(ArrayList<String> selectedProduct) throws SQLException
+    {
+        PipelineProductListQueries.InitializeAllList();
+        int id = Integer.valueOf(selectedProduct.get(0));
+        for (int i = 0; i < PipelineProductListQueries.listQueriesTableProduct.size() ; i++)
+        {
+            if (id == PipelineProductListQueries.listQueriesTableProduct.get(i).getIdProducts());
+            {
+                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()-1,"stock");
+                System.out.println(PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+" en stock");
+                if(PipelineProductListQueries.listQueriesTableProduct.get(i).getStock() <= 0) MySQLOperations.delete(PipelineProductListQueries.listQueriesTableProduct.get(i));
+            }
         }
+    }
+
+    private void displayProductDetails(ArrayList<String> selectedProduct) {
+        if(selectedProduct!=null){
+            txtAinfo.setText("id : "+selectedProduct.get(0)+"\nnom : "+selectedProduct.get(1)+"\nquantité : "+selectedProduct.get(2)+"\nprix d'achat : "+selectedProduct.get(3));
+        }
+    }
+
+    public void initialize() throws SQLException {
+        //initialisation des données
+        List<String> tvalues = new ArrayList<String>();
+        List<List<String>> produits = new ArrayList<>();
+        PipelineProductListQueries(new Clothes("nike",84.99,99.99,39.0));
+        produits.add(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.getFirst()));
+        ObservableList<List<String>> prods = FXCollections.observableArrayList(produits);
+
+        //Choix de la colonne a changé
+        tvalues.add("nom du produit");
+        tvalues.add("taille");
+        tvalues.add("capital");
+        tvalues.add("income");
+        tvalues.add("outcome");
+        ObservableList<String> type = FXCollections.observableArrayList(tvalues);
+
+        //Affichage
+        lstVproduit.setItems(prods);
+        cmbType.setItems(type);
+        lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails((ArrayList<String>) lstVproduit.getSelectionModel().getSelectedItem()));
+    }
+
+    public void Poppup()
+        {
+            APpopup.setVisible(true);
+            btn1.setVisible(false);
+            btn2.setVisible(false);
+            btn3.setVisible(false);
+            txtAinfo.setVisible(false);
+            lstVproduit.setVisible(false);
+        System.out.println("popup actif");
+    }
+
+    public void Cancel()
+    {
+        APpopup.setVisible(false);
+        Panebackground.setVisible(true);
+        btn1.setVisible(true);
+        btn2.setVisible(true);
+        btn3.setVisible(true);
+        txtAinfo.setVisible(true);
+        lstVproduit.setVisible(true);
+        System.out.println("popup inactif");
+    }
+    public void submit() throws SQLException
+    {
+        //A ecrire
     }
 }
