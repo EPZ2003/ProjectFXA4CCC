@@ -32,8 +32,11 @@ public class Main extends Application {
            // Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
            // Queries x = PipelineProductListQueries.listQueriesTableProductPrices.get(0);
            // System.out.println(MySQLOperations.read(x));
-           System.out.println(PipelineProductListQueries.listQueriesTableProductPrices);
+            //PipelineProductListQueries.PipelineProductListQueries(new Shoes("poeoepeeppe",34.01,32.02,40.5));
+            //Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
 
+            //MySQLOperations.update(test,34343243,"stock");
+            //System.out.println(test.getStock());
 
 
         } catch (Exception e) {
