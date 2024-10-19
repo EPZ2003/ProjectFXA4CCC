@@ -245,7 +245,7 @@ public class FirstPageController implements LoadindFXML
                     if (PipelineProductListQueries.listQueriesTableProduct.get(i).getId() == id)
                     {
                         if (column == "Nom du produit")
-                            MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),new_data,"stock");
+                            MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),new_data,"product_name");
 
                         if (column == "Quantité") {
                             try {
