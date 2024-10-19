@@ -1,6 +1,8 @@
 package controllersPackage;
 
+import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
+import SQLModule.MySQLOperations;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +11,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
 import WomenShopClasses.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static WomenShopClasses.Product.*;
 
 public class HomePageController implements LoadindFXML {
 
@@ -30,6 +36,9 @@ public class HomePageController implements LoadindFXML {
     private Button btnPage3;
 
     @FXML
+    private Label lblErrorHomePage;
+
+    @FXML
     private Label lblInfoLine1;
 
     @FXML
@@ -37,6 +46,15 @@ public class HomePageController implements LoadindFXML {
 
     @FXML
     private Label lblTitle;
+
+    @FXML
+    private Label lblInstructions;
+
+    @FXML
+    private TextArea txtACapital;
+
+    @FXML
+    private Button btnConfirmCapital;
 
     public void goToFirstPage(ActionEvent event) {
         loadingFXML("firstPage.fxml",event);
@@ -57,21 +75,34 @@ public class HomePageController implements LoadindFXML {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            System.out.println("Error during loading : "+ e);
+            displayError();
         }
     }
 
-    List<Product> jpdt = new ArrayList<>();
-
-    public void initialize()
-    {
-        Shoes Nike = new Shoes("Nike", 16.50, 16.2, 42.00);
-        Accessory jewelery = new Accessory("Charles Logan", 16.2,18.1);
-        Clothes Dolshigatana = new Clothes("Dolshigatana", 12.4,18.4,46.00);
-        jpdt.add(Nike);
-        jpdt.add(jewelery);
-        jpdt.add(Dolshigatana);
-        //System.out.println("jpdt : " + jpdt);
-
+    public void displayError(){
+        lblErrorHomePage.setText("Error !");
     }
+
+
+
+    public void enterCapital(){
+        try
+        {
+            PipelineProductListQueries.InitializeAllList();
+            //System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getPurchasePrice());
+           // System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome());
+           // MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), 40.00 ,"capital");
+
+            PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
+        }
+        catch (Exception e)
+        {
+            displayError();
+            System.out.println(e);
+        }
+    }
+
+
+
+
 }

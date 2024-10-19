@@ -27,7 +27,10 @@ public class SecondPageController implements LoadindFXML {
     private Button btnPage3;
 
     @FXML
-    private Label lblStorage;
+    private Label lblErrorAccountability;
+
+    @FXML
+    private Label lblAccountability;
 
     @FXML
     private TextField txtFCapital;
@@ -47,6 +50,9 @@ public class SecondPageController implements LoadindFXML {
     public void goToThirdPage(ActionEvent event) {
         loadingFXML("thirdPage.fxml",event);
     }
+    public void displayError(){
+        lblErrorAccountability.setText("Error !");
+    }
 
     @Override
     public void loadingFXML(String FxmlFile, ActionEvent event) {
@@ -57,7 +63,7 @@ public class SecondPageController implements LoadindFXML {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            System.out.println("Error during loading : "+ e);
+            displayError();
         }
     }
 

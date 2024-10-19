@@ -9,13 +9,13 @@ import java.util.ArrayList;
 public class MySQLOperations {
     static final String DB_URL = "jdbc:mysql://localhost:3306/projetjavafx";
     static final String USER = "root";
-    static final String PASS = "1234";
+    static final String PASS = "Battlefield3";
 
     public static void addRow(Queries sql){
         try{
-            if (sql.getTableName() == Queries.TABLE_MONEY){
+           /* if (sql.getTableName() == Queries.TABLE_MONEY){
                 throw new Exception("Bad table");
-            }
+            }*/
 
             Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement preparedStatement = conn.prepareStatement(sql.addRow());

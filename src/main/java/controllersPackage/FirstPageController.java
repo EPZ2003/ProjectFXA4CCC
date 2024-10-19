@@ -39,7 +39,10 @@ public class FirstPageController implements LoadindFXML {
     private Button btnPage3;
 
     @FXML
-    private Label lblPrices;
+    private Label lblStorage;
+
+    @FXML
+    private Label lblErrorStorage;
 
     @FXML
     public ListView<Product> lstVproduit;
@@ -72,7 +75,7 @@ public class FirstPageController implements LoadindFXML {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            System.out.println("Error during loading : "+ e);
+            displayError();
         }
     }
 
@@ -91,6 +94,11 @@ public class FirstPageController implements LoadindFXML {
         lstVproduit.setItems(prods);
         lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails(lstVproduit.getSelectionModel().getSelectedItem()));
     }
+
+    public void displayError(){
+        lblErrorStorage.setText("Error !");
+    }
+
 
     private void displayProductDetails(Product selectedProduct) {
         if(selectedProduct!=null){
