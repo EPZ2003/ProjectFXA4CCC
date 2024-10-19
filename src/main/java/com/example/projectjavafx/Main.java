@@ -7,37 +7,40 @@ import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
 import WomenShopClasses.Shoes;
+import controllersPackage.ThirdPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-//to do : Enlever purchasePrice et sellPrice de l'affichage de page 1
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 public class Main extends Application {
-
+    ArrayList<Queries> test = PipelineProductListQueries.listQueriesTableProduct;
     @Override
     public void start(Stage stage) {
         try{
+            PipelineProductListQueries.InitializeAllList();
             String homePagePath = "/controllersPackage/homePage.fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homePagePath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
             stage.setScene(scene);
+
             stage.show();
 
-
 //TEST A-23
-           // PipelineProductListQueries.PipelineProductListQueries(new Shoes("yesSay",34.01,32.02,40.5));
-           // Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
-           // Queries x = PipelineProductListQueries.listQueriesTableProductPrices.get(0);
-           // System.out.println(MySQLOperations.read(x));
-            //PipelineProductListQueries.PipelineProductListQueries(new Shoes("poeoepeeppe",34.01,32.02,40.5));
-            //Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
-
-            //MySQLOperations.update(test,34343243,"stock");
-            //System.out.println(test.getStock());
+            /*PipelineProductListQueries.listQueriesTableProductPrices.forEach(e -> {
+                try {
+                    System.out.println(MySQLOperations.read(e));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });*/
 
 
         } catch (Exception e) {
@@ -46,7 +49,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        ThirdPageController.setAddProduct(0);
 
 
         launch();

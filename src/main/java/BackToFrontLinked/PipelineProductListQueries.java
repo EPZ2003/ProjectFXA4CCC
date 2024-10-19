@@ -16,7 +16,11 @@ public class PipelineProductListQueries {
 
     public static void InitializeAllList() throws SQLException{
         listQueriesTableProduct = MySQLOperations.readTableProduct();
+
         listQueriesTableProductPrices = MySQLOperations.readTableProductPrices();
+        for (Queries e : listQueriesTableProductPrices){
+            System.out.println("InitializeAllList :"+MySQLOperations.read(e));
+        }
         listQueriesTableMoney = MySQLOperations.readTableMoney();
     }
     //Initialize table_Money;
@@ -69,6 +73,14 @@ public class PipelineProductListQueries {
 
 
 
+    }
+    public static void PipelineQueries (Queries queries){
+        MySQLOperations.addRow(queries);
+        if (queries.getTableName() == Queries.TABLE_PRODUCT){
+            listQueriesTableProduct.add(queries);
+        } else if (queries.getTableName() == Queries.TABLE_PRODUCT_PRICES) {
+            listQueriesTableProductPrices.add(queries);
+        }
     }
 
 }

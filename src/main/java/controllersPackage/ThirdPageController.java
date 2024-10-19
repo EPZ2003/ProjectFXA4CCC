@@ -28,6 +28,15 @@ import java.util.List;
 import static BackToFrontLinked.PipelineProductListQueries.PipelineProductListQueries;
 
 public class ThirdPageController implements LoadindFXML {
+    public static int addProduct;
+
+    public static int getAddProduct() {
+        return addProduct;
+    }
+
+    public static void setAddProduct(int addProduct) {
+        ThirdPageController.addProduct = addProduct;
+    }
 
     private Stage stage;
     private Scene scene;
@@ -59,13 +68,35 @@ public class ThirdPageController implements LoadindFXML {
     @FXML
     private TextArea txtAPriceInfo;
 
+    private static ArrayList<ArrayList<String>> prices = new ArrayList<>();
+
+    public static ArrayList<ArrayList<String>> getPrices() {
+        return prices;
+    }
+
+    public static void setPrices(ArrayList<ArrayList<String>> prices) {
+        ThirdPageController.prices = prices;
+    }
+
+    public static ArrayList<ArrayList<String>> refreshPrices() throws SQLException{
+    setPrices(new ArrayList<>());
+        int id = 1;
+        ArrayList<ArrayList<String>> listToReturn = getPrices();
+        for (Queries sql : PipelineProductListQueries.listQueriesTableProductPrices){
+            listToReturn.add(MySQLOperations.readForRefresh(sql,id,addProduct));
+            id++;
+        }
+        return listToReturn;
+    }
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
     }
-    public void goToFirstPage(ActionEvent event) {
+    public void goToFirstPage(ActionEvent event) throws SQLException {
+
         loadingFXML("firstPage.fxml",event);
     }
-    public void goToSecondPage(ActionEvent event) {
+    public void goToSecondPage(ActionEvent event) throws SQLException {
+        refreshPrices();
         loadingFXML("secondPage.fxml",event);
     }
 
@@ -112,13 +143,12 @@ public class ThirdPageController implements LoadindFXML {
         }
     }
 
+
     public void initialize() throws SQLException {
-        List<List<String>> prices = new ArrayList<>();
-        PipelineProductListQueries(new Shoes("cora",49.99,59.99,40.0));
-        prices.add(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
-        ObservableList<List<String>> prods = FXCollections.observableArrayList(prices);
+
+        ObservableList<List<String>> prods = FXCollections.observableArrayList(refreshPrices());
         lstVprices.setItems(prods);
-        System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.size());
+
         lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails((ArrayList<String>) lstVprices.getSelectionModel().getSelectedItem()));
     }
 

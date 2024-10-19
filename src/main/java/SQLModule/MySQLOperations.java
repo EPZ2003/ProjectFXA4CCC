@@ -1,6 +1,8 @@
 package SQLModule;
 
 
+import BackToFrontLinked.PipelineProductListQueries;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -67,12 +69,35 @@ public class MySQLOperations {
 
         if (rs.next()){
             for (String i : sql.getColumn()) {
+
                 row.add( rs.getString(i) ) ;
             }
         }
         return row;
     }
+    public static ArrayList<String> readForRefresh (Queries sql,int id,int addProduct) throws SQLException{
+        int i = 0;
+        if (sql.getTableName() == Queries.TABLE_PRODUCT_PRICES){
+            i = id;
+            sql.setIdProducts(i);
+        }else if (sql.getTableName() == Queries.TABLE_PRODUCT ){
+            i = id;
+            System.out.println(i);
+            sql.setId(i);
+        }
+        ArrayList<String> row = new ArrayList<String>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sql.read());
 
+        if (rs.next()){
+            for (String e : sql.getColumn()) {
+
+                row.add( rs.getString(e) ) ;
+            }
+        }
+        return row;
+    }
     public static ArrayList<Queries> readTableProduct() throws SQLException{
         ArrayList<Queries> listToReturn = new ArrayList<>();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
@@ -89,8 +114,12 @@ public class MySQLOperations {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_products_prices");
         while (rs.next()){
-            listToReturn.add (new Queries(rs.getFloat("discount"),rs.getDouble("sellPrice"),rs.getDouble("purchasePrice")) );
+            //System.out.println("readTableProductPrices :" + " discount :" + rs.getFloat("discount") + " sellPrice :" + rs.getDouble("sellPrice") + " purchasePrice :" + rs.getDouble("purchasePrice"));
+            Queries t = new Queries(rs.getFloat("discount"),rs.getDouble("sellPrice"),rs.getDouble("purchasePrice"));
+            listToReturn.add( t);
+            //System.out.println("Queries : "+MySQLOperations.read(t));
         }
+
         return listToReturn;
     }
     public static ArrayList<Queries> readTableMoney() throws SQLException{
