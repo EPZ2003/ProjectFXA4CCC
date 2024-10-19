@@ -17,12 +17,15 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static BackToFrontLinked.PipelineProductListQueries.listQueriesTableMoney;
+
 
 public class Main extends Application {
     ArrayList<Queries> test = PipelineProductListQueries.listQueriesTableProduct;
     @Override
     public void start(Stage stage) {
         try{
+
             PipelineProductListQueries.InitializeAllList();
             String homePagePath = "/controllersPackage/homePage.fxml";
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homePagePath));
@@ -32,7 +35,7 @@ public class Main extends Application {
             stage.setScene(scene);
 
             stage.show();
-
+            //MySQLOperations.linkedQnTMoney();
 //TEST A-23
             /*PipelineProductListQueries.listQueriesTableProductPrices.forEach(e -> {
                 try {
@@ -41,7 +44,7 @@ public class Main extends Application {
                     throw new RuntimeException(ex);
                 }
             });*/
-
+            listQueriesTableMoney.add(new Queries(100.00,100.00,1.00));
 
         } catch (Exception e) {
             System.out.println(e);

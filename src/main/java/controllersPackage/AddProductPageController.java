@@ -151,8 +151,8 @@ public class AddProductPageController implements LoadindFXML, Initializable {
                 Double.valueOf(productPricesList.get(1)),
                 Double.valueOf(productPricesList.get(2))
         );
-        PipelineProductListQueries.PipelineQueries(product);
-        PipelineProductListQueries.PipelineQueries(prices);
+        PipelineProductListQueries.pipelineQueries(product);
+        PipelineProductListQueries.pipelineQueries(prices);
     }
     public void getCategories(ActionEvent event){
         String checkBoxValue = cBxCategories.getValue();

@@ -6,8 +6,10 @@ import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
 import WomenShopClasses.Shoes;
 
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+
+import static SQLModule.MySQLOperations.*;
 
 public class PipelineProductListQueries {
     public static ArrayList<Queries> listQueriesTableProduct = new ArrayList<Queries>();
@@ -15,35 +17,23 @@ public class PipelineProductListQueries {
     public static ArrayList<Queries> listQueriesTableMoney = new ArrayList<Queries>();
 
     public static void InitializeAllList() throws SQLException{
-        listQueriesTableProduct = MySQLOperations.readTableProduct();
 
+        listQueriesTableProduct = MySQLOperations.readTableProduct();
         listQueriesTableProductPrices = MySQLOperations.readTableProductPrices();
-        for (Queries e : listQueriesTableProductPrices){
-            System.out.println("InitializeAllList :"+MySQLOperations.read(e));
-        }
         listQueriesTableMoney = MySQLOperations.readTableMoney();
+
+
     }
     //Initialize table_Money;
-    private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
+    //public static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
-    //Have to be called in initilized
-    public static void initializeMoneyPipeline(Double capital) throws SQLException{
-        InitializeAllList();
-        setCapital(capital);
-        if (MySQLOperations.readTableMoney().size() == 0 ){
-            MySQLOperations.addRow(uniqueRow);
-            listQueriesTableMoney.add(uniqueRow);
-        }else if (MySQLOperations.readTableMoney().size() == 1) {
-            MySQLOperations.update(uniqueRow,capital,"capital");
-        }
 
-    }
 
-    public static void setCapital(Double capital) {
-        PipelineProductListQueries.uniqueRow.setCapital(capital);
-    }
+
+
 
     public static void PipelineProductListQueries(Product product)throws SQLException {
+
 
         if (product instanceof Shoes){
             Queries itemTableProducts = new Queries(product.getName(),product.getNbItems(),((Shoes) product).getShoeSize());
@@ -75,7 +65,7 @@ public class PipelineProductListQueries {
 
 
     }
-    public static void PipelineQueries (Queries queries){
+    public static void pipelineQueries (Queries queries){
         MySQLOperations.addRow(queries);
         if (queries.getTableName() == Queries.TABLE_PRODUCT){
             listQueriesTableProduct.add(queries);

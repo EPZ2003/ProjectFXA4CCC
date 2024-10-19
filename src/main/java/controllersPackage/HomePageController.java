@@ -3,9 +3,11 @@ package controllersPackage;
 import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
 import SQLModule.MySQLOperations;
+import SQLModule.Queries;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,16 +18,22 @@ import javafx.stage.Stage;
 
 import WomenShopClasses.*;
 
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 
 import static WomenShopClasses.Product.*;
 
-public class HomePageController implements LoadindFXML {
+public class HomePageController implements LoadindFXML, Initializable {
 
     Scene scene;
     Stage stage;
+    @FXML
 
+    private TextArea txtACapital;
     @FXML
     private Button btnPage1;
 
@@ -50,8 +58,6 @@ public class HomePageController implements LoadindFXML {
     @FXML
     private Label lblInstructions;
 
-    @FXML
-    private TextArea txtACapital;
 
     @FXML
     private Button btnConfirmCapital;
@@ -86,23 +92,19 @@ public class HomePageController implements LoadindFXML {
 
 
     public void enterCapital(){
-        try
-        {
-            PipelineProductListQueries.InitializeAllList();
-            //System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getPurchasePrice());
-           // System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome());
-           // MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), 40.00 ,"capital");
+            PipelineProductListQueries.listQueriesTableMoney.getLast().setCapital(Double.valueOf(txtACapital.getText()));
+            txtACapital.setDisable(true);
 
-            PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
-        }
-        catch (Exception e)
-        {
-            displayError();
-            System.out.println(e);
-        }
     }
 
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            PipelineProductListQueries.InitializeAllList();
 
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -163,16 +163,17 @@ public class Queries  {
     public <T> String udpate (T changeValue,String columnName) {
         if (this.getTableName() == Queries.TABLE_PRODUCT )return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+"'"+changeValue+"'" +" where id = "+this.getId()+";";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+ changeValue +" where id_products = "+this.getIdProducts()+";";
-        else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+ changeValue;
+        else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue;
         else return "";
     }
 
     public String read (){
         if (this.getTableName() == Queries.TABLE_PRODUCT )return " select * from "+this.getTableName() +" where id = "+this.getId();
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES ) return " select * from " +this.getTableName() +" where id_products = "+this.getIdProducts();
-        else if (this.getTableName() == Queries.TABLE_MONEY ) return " select * from " +this.getTableName();
+        else if (this.getTableName() == Queries.TABLE_MONEY )  return " select * from projetjavafx.table_money";
         else return "";
     }
+
 
     public ArrayList<String> getColumn(){
         ArrayList<String> list = new ArrayList<String>();

@@ -2,17 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllersPackage.SecondPageController">
-      <Label layoutX="164.0" layoutY="150.0" text="Capital" />
-      <Label layoutX="140.0" layoutY="204.0" text="Global outcome" />
-      <Label layoutX="144.0" layoutY="261.0" text="Global income" />
-      <TextField fx:id="txtFCapital" layoutX="274.0" layoutY="146.0" />
-      <TextField fx:id="txtFOutcome" layoutX="274.0" layoutY="200.0" />
-      <TextField fx:id="txtFIncome" layoutX="274.0" layoutY="257.0" />
+      <Label fx:id="lblCapital" layoutX="164.0" layoutY="150.0" text="Capital" />
+      <Label fx:id="lblOutcome" layoutX="140.0" layoutY="204.0" text="Global outcome" />
+      <Label fx:id="lblIncome" layoutX="144.0" layoutY="261.0" text="Global income" />
       <Button fx:id="btnHomePage" layoutX="391.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToHomePage" text="HomePage" />
       <Button fx:id="btnPage1" layoutX="473.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToFirstPage" text="Page 1" />
       <Button fx:id="btnPage3" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToThirdPage" text="Page 3" />
@@ -22,4 +19,19 @@
          </font>
       </Label>
    <Label fx:id="lblErrorAccountability" layoutX="73.0" layoutY="330.0" prefHeight="41.0" prefWidth="85.0" />
+   <Label fx:id="lblResultCapital" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="142.0" prefHeight="25.0" prefWidth="144.0" text="EMPTY">
+      <effect>
+         <Glow />
+      </effect>
+   </Label>
+   <Label fx:id="lblResultOutcome" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="200.0" prefHeight="25.0" prefWidth="144.0" text="EMPTY">
+      <effect>
+         <Glow />
+      </effect>
+   </Label>
+   <Label fx:id="lblResultIncome" alignment="CENTER" contentDisplay="CENTER" layoutX="238.0" layoutY="257.0" prefHeight="25.0" prefWidth="144.0" text="EMPTY">
+      <effect>
+         <Glow />
+      </effect>
+   </Label>
 </Pane>

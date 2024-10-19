@@ -6,10 +6,31 @@ import BackToFrontLinked.PipelineProductListQueries;
 import java.sql.*;
 import java.util.ArrayList;
 
+
+
 public class MySQLOperations {
-    static final String DB_URL = "jdbc:mysql://localhost:3306/projetjavafx";
-    static final String USER = "root";
-    static final String PASS = "1234";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/projetjavafx";
+    public static final String USER = "root";
+    public static final String PASS = "1234";
+
+    public static void linkedQnTMoney () throws SQLException {
+
+        /*ArrayList<String> row = new ArrayList<String>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
+
+        if (rs.next()){
+            for (String i : uniqueRow.getColumn()) {
+
+                row.add( rs.getString(i) ) ;
+
+            }
+        }
+        uniqueRow.setCapital(Double.valueOf(row.get(0)));
+        uniqueRow.setIncome(Double.valueOf(row.get(1)));
+        uniqueRow.setOutcome(Double.valueOf(row.get(2)));*/
+    }
 
     public static void addRow(Queries sql){
         try{
@@ -71,6 +92,7 @@ public class MySQLOperations {
             for (String i : sql.getColumn()) {
 
                 row.add( rs.getString(i) ) ;
+
             }
         }
         return row;
@@ -130,7 +152,7 @@ public class MySQLOperations {
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
         while (rs.next()){
             listToReturn.add(new Queries(rs.getDouble("capital"),rs.getDouble("income"),rs.getDouble("outcome")) );
-            System.out.println(listToReturn);
+            System.out.println(rs.getDouble("capital")+ ""+rs.getDouble("income")+""+rs.getDouble("outcome"));
         }
         return listToReturn;
     }
