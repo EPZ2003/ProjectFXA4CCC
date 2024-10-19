@@ -149,6 +149,7 @@ public class Queries  {
     public String addRow () {
         if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (product_name,stock,specialAttribute) values ("+"'"+this.getProductName()+"'"+","+this.getStock()+","+this.getSpecialAttribute()+")";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (discount,sellPrice,purchasePrice) values ("+this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
+        else if (this.getTableName() == Queries.TABLE_MONEY) return " insert into "+this.getTableName()  +" (capital,income,outcome) values ("+this.getCapital()+","+this.getIncome()+","+this.getOutcome()+")";
         else return "";
     }
 

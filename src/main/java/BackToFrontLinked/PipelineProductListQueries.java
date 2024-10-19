@@ -23,10 +23,15 @@ public class PipelineProductListQueries {
     private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
     //Have to be called in initilized
-    private static void initializeMoneyPipeline(Double capital){
+    private static void initializeMoneyPipeline(Double capital) throws SQLException{
         setCapital(capital);
-        MySQLOperations.addRow(uniqueRow);
-        listQueriesTableMoney.add(uniqueRow);
+        if (MySQLOperations.readTableMoney().size() == 0 ){
+            MySQLOperations.addRow(uniqueRow);
+            listQueriesTableMoney.add(uniqueRow);
+        }else if (MySQLOperations.readTableMoney().size() == 1) {
+            MySQLOperations.update(uniqueRow,capital,"capital");
+        }
+
     }
 
     public static void setCapital(Double capital) {
@@ -39,22 +44,29 @@ public class PipelineProductListQueries {
             Queries itemTableProducts = new Queries(product.getName(),product.getNbItems(),((Shoes) product).getShoeSize());
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.80f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
         else if (product instanceof Clothes){
 
             Queries itemTableProducts = new Queries(product.getName(),product.getNbItems(),((Clothes) product).getSize());
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.70f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
         else{
             Queries itemTableProducts = new Queries(product.getName(), product.getNbItems(), null);
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.50f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
 
-        Queries itemTableProductsPrices = new Queries(1.00f, product.getSellPrice(), product.getPurchasePrice());
-        MySQLOperations.addRow(itemTableProductsPrices);
-        listQueriesTableProductPrices.add(itemTableProductsPrices);
+
 
 
     }
