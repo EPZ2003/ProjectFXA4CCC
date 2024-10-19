@@ -47,6 +47,7 @@ public class Queries  {
         this.capital = capital;
         this.income = income;
         this.outcome = outcome;
+        this.tableName = "projetjavafx.table_money";
     }
 
     public Double getSpecialAttribute() {

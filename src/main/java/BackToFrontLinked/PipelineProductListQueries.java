@@ -20,13 +20,21 @@ public class PipelineProductListQueries {
         listQueriesTableMoney = MySQLOperations.readTableMoney();
     }
     //Initialize table_Money;
-    private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
+    public static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
     //Have to be called in initilized
-    public static void initializeMoneyPipeline(Double capital){
+    public static void initializeMoneyPipeline(Double capital) throws SQLException{
         setCapital(capital);
-        MySQLOperations.addRow(uniqueRow);
-        listQueriesTableMoney.add(uniqueRow);
+        if (listQueriesTableMoney.size() == 0)
+        {
+            MySQLOperations.addRow(uniqueRow);
+            listQueriesTableMoney.add(uniqueRow);
+        }
+        else
+        {
+            MySQLOperations.update(uniqueRow, capital, "capital");
+        }
+
     }
 
     public static void setCapital(Double capital) {

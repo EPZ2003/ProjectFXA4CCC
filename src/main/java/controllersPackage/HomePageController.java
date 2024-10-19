@@ -2,6 +2,7 @@ package controllersPackage;
 
 import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
+import SQLModule.MySQLOperations;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
 import WomenShopClasses.*;
 
 import java.util.ArrayList;
@@ -86,11 +88,16 @@ public class HomePageController implements LoadindFXML {
     public void enterCapital(){
         try
         {
-            PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
+            PipelineProductListQueries.InitializeAllList();
+            System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getPurchasePrice());
+            MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), 40.00 ,"capital");
+
+            // PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
         }
         catch (Exception e)
         {
             displayError();
+            System.out.println(e);
         }
     }
 
