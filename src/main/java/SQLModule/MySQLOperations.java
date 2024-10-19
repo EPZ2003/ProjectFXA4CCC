@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MySQLOperations {
     static final String DB_URL = "jdbc:mysql://localhost:3306/projetjavafx";
     static final String USER = "root";
-    static final String PASS = "Battlefield3";
+    static final String PASS = "1234";
 
     public static void addRow(Queries sql){
         try{
