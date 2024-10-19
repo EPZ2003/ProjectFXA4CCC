@@ -19,6 +19,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,10 @@ public class FirstPageController implements LoadindFXML {
         loadingFXML("secondPage.fxml",event);
     }
     public void goToThirdPage(ActionEvent event) {
-        loadingFXML("thirdPage.fxml",event);
+
+            loadingFXML("thirdPage.fxml",event);
+
+
     }
     @FXML
     void goToAddProductPage(ActionEvent event) {

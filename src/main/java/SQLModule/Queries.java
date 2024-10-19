@@ -26,7 +26,7 @@ public class Queries  {
 
     //Constructor for table :  table_products
     public Queries (String productName,int stock, Double specialAttribute) {
-        this.id = id;
+
         this.productName = productName;
         this.stock = stock;
         this.specialAttribute = specialAttribute;
@@ -35,7 +35,7 @@ public class Queries  {
 
     //Constructor for table :  table_products_prices
     public Queries (float discount,Double sellPrice,Double purchasePrice) {
-        this.idProducts = idProducts;
+
         this.discount = discount;
         this.sellPrice = sellPrice;
         this.purchasePrice = purchasePrice;
