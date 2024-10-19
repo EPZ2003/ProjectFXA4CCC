@@ -47,8 +47,12 @@ public class ThirdPageController implements LoadindFXML {
     @FXML
     private Button btnSell;
 
+
     @FXML
-    private Label lblAccoutability;
+    private Label lblErrorPrices;
+
+    @FXML
+    private Label lblPrices;
 
     @FXML
     private ListView<List<String>> lstVprices;
@@ -78,12 +82,17 @@ public class ThirdPageController implements LoadindFXML {
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {
-            System.out.println("Error during loading : "+ e);
+            displayError();
         }
     }
 
+    public void displayError(){
+        lblErrorPrices.setText("Error !");
+    }
+
     @FXML
-    public void handleBuyButtonClick() throws SQLException {
+    public void handleBuyButtonClick() {
+        try{
         // Récupérer l'élément sélectionné dans la ListView
         ArrayList<String> selectedProduct = (ArrayList<String>)lstVprices.getSelectionModel().getSelectedItem();
 
@@ -92,9 +101,14 @@ public class ThirdPageController implements LoadindFXML {
             purchaseItem(selectedProduct);
             System.out.println("produit acheté");
         }}
+    catch(Exception e){
+            displayError();
+    }
+    }
 
     @FXML
-    public void handleSellButtonClick() throws SQLException {
+    public void handleSellButtonClick() {
+        try{
         // Récupérer l'élément sélectionné dans la ListView
         ArrayList<String> selectedProduct = (ArrayList<String>)lstVprices.getSelectionModel().getSelectedItem();
 
@@ -103,16 +117,26 @@ public class ThirdPageController implements LoadindFXML {
             sellItem(selectedProduct);
             System.out.println("produit vendu");
         }}
+    catch(Exception e){
+            displayError();
+    }
+    }
 
-    public void handleDiscountButtonClick() throws SQLException {
+    public void handleDiscountButtonClick() {
+        try{
         ArrayList<String> selectedProduct = (ArrayList<String>)lstVprices.getSelectionModel().getSelectedItem();
         if (selectedProduct != null) {
             toggleDiscount(selectedProduct);
 
         }
     }
+        catch(Exception e){
+            displayError();
+        }
+    }
 
-    public void initialize() throws SQLException {
+    public void initialize() {
+        try{
         List<List<String>> prices = new ArrayList<>();
         PipelineProductListQueries(new Shoes("cora",49.99,59.99,40.0));
         prices.add(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
@@ -121,6 +145,10 @@ public class ThirdPageController implements LoadindFXML {
         System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.size());
         lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails((ArrayList<String>) lstVprices.getSelectionModel().getSelectedItem()));
     }
+    catch(Exception e){
+            displayError();
+    }
+    }
 
     private void displayProductDetails(ArrayList<String> selectedProduct) {
         if(selectedProduct!=null){
@@ -128,8 +156,9 @@ public class ThirdPageController implements LoadindFXML {
         }
     }
 
-    public void purchaseItem(ArrayList<String> selectedProduct) throws SQLException
-    {   PipelineProductListQueries.InitializeAllList();
+    public void purchaseItem(ArrayList<String> selectedProduct)
+    {   try{
+        PipelineProductListQueries.InitializeAllList();
             int id = Integer.valueOf(selectedProduct.get(0));
             for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
             {
@@ -143,29 +172,35 @@ public class ThirdPageController implements LoadindFXML {
                 }
             }
     }
+    catch(Exception e)
+    {displayError();}
+    }
 
 
 
-    private void sellItem(ArrayList<String> selectedProduct) throws SQLException
-    {   PipelineProductListQueries.InitializeAllList();
-        int id = Integer.valueOf(selectedProduct.get(0));
-        for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
-        {
+    private void sellItem(ArrayList<String> selectedProduct) {
+        try {
+            PipelineProductListQueries.InitializeAllList();
+            int id = Integer.valueOf(selectedProduct.get(0));
+            for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size(); i++) {
 
-            if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
-            {
-                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()-1,"stock");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getIncome() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"income");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"capital");
+                if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts()) ;
+                {
+                    MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock() - 1, "stock");
+                    //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getIncome() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"income");
+                    //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"capital");
 
+                }
             }
+        } catch (Exception e) {
+            displayError();
         }
     }
 
 
-    private void toggleDiscount(ArrayList<String> selectedProduct) throws SQLException
+    private void toggleDiscount(ArrayList<String> selectedProduct)
     {
-
+        try{
         PipelineProductListQueries.InitializeAllList();
         int id = Integer.valueOf(selectedProduct.get(0));
         for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
@@ -193,7 +228,8 @@ public class ThirdPageController implements LoadindFXML {
 
 
             }
-        }
+        }}
+        catch(Exception e) {displayError();}
     }
 
 

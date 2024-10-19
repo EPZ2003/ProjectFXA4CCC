@@ -17,5 +17,6 @@
       </Label>
       <Label fx:id="lblInfoLine1" layoutX="55.0" layoutY="137.0" prefHeight="75.0" prefWidth="511.0" text="Here you can access and update all the information regarding the shop's status and stocks " />
       <Label fx:id="lblInfoLine2" layoutX="55.0" layoutY="192.0" prefHeight="17.0" prefWidth="481.0" text="There are three pages that you can visit and interact with   : )" />
+      <Label fx:id="lblErrorHomePage" layoutX="55.0" layoutY="307.0" prefHeight="75.0" prefWidth="97.0" />
    </children>
 </Pane>
