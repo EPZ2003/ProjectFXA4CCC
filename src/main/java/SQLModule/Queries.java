@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Queries  {
-    static final String TABLE_PRODUCT = "projetjavafx.table_products";
-    static final String TABLE_PRODUCT_PRICES = "projetjavafx.table_products_prices" ;
-    static final String TABLE_MONEY = "projetjavafx.table_money" ;
+    public static final String TABLE_PRODUCT = "projetjavafx.table_products";
+    public static final String TABLE_PRODUCT_PRICES = "projetjavafx.table_products_prices" ;
+    public static final String TABLE_MONEY = "projetjavafx.table_money" ;
 
     //Use to know which table are related to the query
     private String tableName = "projetjavafx.table_money";
@@ -149,6 +149,7 @@ public class Queries  {
     public String addRow () {
         if (this.getTableName() == Queries.TABLE_PRODUCT ) return " insert into "+this.getTableName()+" (product_name,stock,specialAttribute) values ("+"'"+this.getProductName()+"'"+","+this.getStock()+","+this.getSpecialAttribute()+")";
         else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " insert into "+this.getTableName()  +" (discount,sellPrice,purchasePrice) values ("+this.getDiscount()+","+this.getSellPrice()+","+this.getPurchasePrice()+")";
+        else if (this.getTableName() == Queries.TABLE_MONEY) return " insert into "+this.getTableName()  +" (capital,income,outcome) values ("+this.getCapital()+","+this.getIncome()+","+this.getOutcome()+")";
         else return "";
     }
 

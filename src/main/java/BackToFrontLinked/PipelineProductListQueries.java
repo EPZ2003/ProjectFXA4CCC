@@ -23,10 +23,15 @@ public class PipelineProductListQueries {
     private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
     //Have to be called in initilized
-    private static void initializeMoneyPipeline(Double capital){
+    private static void initializeMoneyPipeline(Double capital) throws SQLException{
         setCapital(capital);
-        MySQLOperations.addRow(uniqueRow);
-        listQueriesTableMoney.add(uniqueRow);
+        if (MySQLOperations.readTableMoney().size() == 0 ){
+            MySQLOperations.addRow(uniqueRow);
+            listQueriesTableMoney.add(uniqueRow);
+        }else if (MySQLOperations.readTableMoney().size() == 1) {
+            MySQLOperations.update(uniqueRow,capital,"capital");
+        }
+
     }
 
     public static void setCapital(Double capital) {
