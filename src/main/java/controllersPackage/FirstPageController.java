@@ -194,8 +194,8 @@ public class FirstPageController implements LoadindFXML
         tvalues.add("Quantité");
         tvalues.add("Taille");
         tvalues.add("Capital");
-        tvalues.add("Income");
-        tvalues.add("Outcome");
+        tvalues.add("Prix de vente");
+        tvalues.add("Prix d'achat");
         ObservableList<String> type = FXCollections.observableArrayList(tvalues);
 
         //Affichage
@@ -232,9 +232,12 @@ public class FirstPageController implements LoadindFXML
     }
     public void submit() throws SQLException
     {
+        int id = Integer.valueOf(SelectedProduct.get(0));
         String new_data = txtFNouveauchamp.getText();
         String column = cmbType.getValue();
-        int id = Integer.valueOf(SelectedProduct.get(0));
+        //System.out.println(new_data);
+        //System.out.println(column);
+        //System.out.println(id);
         if(column != null && new_data != "")
         {
             PipelineProductListQueries.InitializeAllList();
@@ -242,16 +245,25 @@ public class FirstPageController implements LoadindFXML
             {
                 for (int i = 0; i < PipelineProductListQueries.listQueriesTableProduct.size(); i++)
                 {
-                    if (PipelineProductListQueries.listQueriesTableProduct.get(i).getId() == id)
+                    if (PipelineProductListQueries.listQueriesTableProduct.get(i).getIdProducts() == id)
                     {
                         if (column == "Nom du produit")
                             MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),new_data,"product_name");
+                            displayProductDetails(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.get(i)));
+                            lstVproduit.getSelectionModel().getSelectedItem().set(1, PipelineProductListQueries.listQueriesTableProduct.get(i).getProductName());
+                            lstVproduit.refresh();
+                            Cancel();
+                            System.out.println("qcq");
 
                         if (column == "Quantité") {
                             try {
                                 int quantity = Integer.valueOf(new_data);
-                                PipelineProductListQueries.listQueriesTableProduct.get(i).setStock(quantity);
                                 MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),quantity,"stock");
+                                displayProductDetails(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.get(i)));
+                                lstVproduit.getSelectionModel().getSelectedItem().set(2, String.valueOf(PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()));
+                                lstVproduit.refresh();
+                                Cancel();
+                                System.out.println("nada");
                             } catch (NumberFormatException e)
                             {
                                 System.out.println("erreur format quantité");
@@ -261,8 +273,8 @@ public class FirstPageController implements LoadindFXML
                         if (column == "Taille") {
                             try {
                                 Double size = Double.valueOf(new_data);
-                                PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(size);
                                 MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),size,"specialAttribute");
+                                Cancel();
                             } catch (NumberFormatException e)
                             {
                                 System.out.println("erreur format Taille");
@@ -279,6 +291,7 @@ public class FirstPageController implements LoadindFXML
                             try {
                                 Double capital = Double.valueOf(new_data);
                                 PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(capital);
+                                Cancel();
                             } catch (NumberFormatException e) {
                                 System.out.println("erreur format capital");
                             }
@@ -288,6 +301,7 @@ public class FirstPageController implements LoadindFXML
                                 Double purchase = Double.valueOf(new_data);
                                 PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(purchase);
                                 MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i),purchase,"income");
+                                Cancel();
                             } catch (NumberFormatException e) {
                                 System.out.println("erreur format Prix d'achat");
                             }
@@ -297,6 +311,7 @@ public class FirstPageController implements LoadindFXML
                                 Double sell = Double.valueOf(new_data);
                                 PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(sell);
                                 MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i),sell,"outcome");
+                                Cancel();
                             } catch (NumberFormatException e) {
                                 System.out.println("erreur format Prix de vente");
                             }
