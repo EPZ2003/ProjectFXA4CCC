@@ -23,7 +23,7 @@ public class PipelineProductListQueries {
     private static Queries uniqueRow = new Queries(1000.00,100.00,100.00);
 
     //Have to be called in initilized
-    private static void initializeMoneyPipeline(Double capital) throws SQLException{
+    public static void initializeMoneyPipeline(Double capital) throws SQLException{
         setCapital(capital);
         if (MySQLOperations.readTableMoney().size() == 0 ){
             MySQLOperations.addRow(uniqueRow);

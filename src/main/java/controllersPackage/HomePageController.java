@@ -89,10 +89,11 @@ public class HomePageController implements LoadindFXML {
         try
         {
             PipelineProductListQueries.InitializeAllList();
-            System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getPurchasePrice());
-            MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), 40.00 ,"capital");
+            //System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getPurchasePrice());
+           // System.out.println(PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome());
+           // MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), 40.00 ,"capital");
 
-            // PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
+            PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
         }
         catch (Exception e)
         {
