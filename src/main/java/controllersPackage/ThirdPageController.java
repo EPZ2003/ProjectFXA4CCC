@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.nio.channels.Pipe;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,9 +104,15 @@ public class ThirdPageController implements LoadindFXML {
             System.out.println("produit vendu");
         }}
 
+    public void handleDiscountButtonClick() throws SQLException {
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVprices.getSelectionModel().getSelectedItem();
+        if (selectedProduct != null) {
+            toggleDiscount(selectedProduct);
+
+        }
+    }
+
     public void initialize() throws SQLException {
-        //System.out.println(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
-        //System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.get(0));
         List<List<String>> prices = new ArrayList<>();
         PipelineProductListQueries(new Shoes("cora",49.99,59.99,40.0));
         prices.add(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(0)));
@@ -130,14 +137,14 @@ public class ThirdPageController implements LoadindFXML {
                 if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
                 {
                     MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1,"stock");
-                    //System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock());
-                    //PipelineProductListQueries.listQueriesTableProductPrices.get(i).setStock(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock() + 1 );
                     //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"outcome");
                     //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"capital");
 
                 }
             }
     }
+
+
 
     private void sellItem(ArrayList<String> selectedProduct) throws SQLException
     {   PipelineProductListQueries.InitializeAllList();
@@ -148,10 +155,42 @@ public class ThirdPageController implements LoadindFXML {
             if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
             {
                 MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()-1,"stock");
-                //System.out.println(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock());
-                //PipelineProductListQueries.listQueriesTableProductPrices.get(i).setStock(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getStock() + 1 );
                 //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getIncome() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"income");
                 //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"capital");
+
+            }
+        }
+    }
+
+
+    private void toggleDiscount(ArrayList<String> selectedProduct) throws SQLException
+    {
+
+        PipelineProductListQueries.InitializeAllList();
+        int id = Integer.valueOf(selectedProduct.get(0));
+        for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
+        {
+
+            if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
+            {
+                if (tBtnDiscount.isSelected())
+            {
+                System.out.println("Discount !!");
+                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i), PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice()*PipelineProductListQueries.listQueriesTableProductPrices.get(i).getDiscount(),"sellPrice");
+                displayProductDetails(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(i)));
+                lstVprices.getSelectionModel().getSelectedItem().set(2, Double.toString((double) Math.round(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice()*100)/100));
+                lstVprices.refresh();
+            }
+                else
+            {
+                System.out.println("Discount stopped...");
+                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i), PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice()/PipelineProductListQueries.listQueriesTableProductPrices.get(i).getDiscount(),"sellPrice");
+                displayProductDetails(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProductPrices.get(i)));
+                lstVprices.getSelectionModel().getSelectedItem().set(2, Double.toString((double) Math.round(PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice() * 100) /100));
+                lstVprices.refresh();
+
+            }
+
 
             }
         }

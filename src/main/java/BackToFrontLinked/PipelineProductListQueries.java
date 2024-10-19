@@ -39,22 +39,29 @@ public class PipelineProductListQueries {
             Queries itemTableProducts = new Queries(product.getName(),product.getNbItems(),((Shoes) product).getShoeSize());
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.80f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
         else if (product instanceof Clothes){
 
             Queries itemTableProducts = new Queries(product.getName(),product.getNbItems(),((Clothes) product).getSize());
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.70f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
         else{
             Queries itemTableProducts = new Queries(product.getName(), product.getNbItems(), null);
             MySQLOperations.addRow(itemTableProducts);
             listQueriesTableProduct.add(itemTableProducts);
+            Queries itemTableProductsPrices = new Queries(0.50f, product.getSellPrice(), product.getPurchasePrice());
+            MySQLOperations.addRow(itemTableProductsPrices);
+            listQueriesTableProductPrices.add(itemTableProductsPrices);
         }
 
-        Queries itemTableProductsPrices = new Queries(1.00f, product.getSellPrice(), product.getPurchasePrice());
-        MySQLOperations.addRow(itemTableProductsPrices);
-        listQueriesTableProductPrices.add(itemTableProductsPrices);
+
 
 
     }
