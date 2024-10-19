@@ -24,6 +24,7 @@ public class PipelineProductListQueries {
 
     //Have to be called in initilized
     public static void initializeMoneyPipeline(Double capital) throws SQLException{
+        InitializeAllList();
         setCapital(capital);
         if (MySQLOperations.readTableMoney().size() == 0 ){
             MySQLOperations.addRow(uniqueRow);
