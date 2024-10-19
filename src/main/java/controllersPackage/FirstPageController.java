@@ -7,6 +7,7 @@ import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
 import WomenShopClasses.Shoes;
+import com.mysql.cj.x.protobuf.MysqlxCrud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +26,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FirstPageController implements LoadindFXML {
+public class FirstPageController implements LoadindFXML
+{
     Scene scene;
     Stage stage;
 
@@ -69,6 +71,9 @@ public class FirstPageController implements LoadindFXML {
     private Button btnSubmit;
 
     @FXML
+    ArrayList<String> SelectedProduct;
+
+    @FXML
     private Button btnCancel;
 
     @FXML
@@ -82,6 +87,9 @@ public class FirstPageController implements LoadindFXML {
 
     @FXML
     private Pane Panebackground;
+
+    @FXML
+    Label lblListedeproduit;
 
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
@@ -129,6 +137,15 @@ public class FirstPageController implements LoadindFXML {
             System.out.println("produit supprimer");
         }}
 
+    public void handleUpdateButtonClick() throws SQLException {
+        // Récupérer l'élément sélectionné dans la ListView
+        SelectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
+
+        // Si un produit est sélectionné, appeler la méthode purchase
+        if (SelectedProduct != null) {
+            Poppup();
+        }}
+
     public void AddItem(ArrayList<String> selectedProduct) throws SQLException
     {
         PipelineProductListQueries.InitializeAllList();
@@ -160,7 +177,7 @@ public class FirstPageController implements LoadindFXML {
 
     private void displayProductDetails(ArrayList<String> selectedProduct) {
         if(selectedProduct!=null){
-            txtAinfo.setText("id : "+selectedProduct.get(0)+"\nnom : "+selectedProduct.get(1)+"\nquantité : "+selectedProduct.get(2)+"\nprix d'achat : "+selectedProduct.get(3));
+            txtAinfo.setText("id : "+selectedProduct.get(0)+"\nnom : "+selectedProduct.get(1)+"\nquantité : "+selectedProduct.get(2)+"\nprix d'achat : "+selectedProduct.get(3) + "\ntaille : "+selectedProduct.size());
         }
     }
 
@@ -173,11 +190,12 @@ public class FirstPageController implements LoadindFXML {
         ObservableList<List<String>> prods = FXCollections.observableArrayList(produits);
 
         //Choix de la colonne a changé
-        tvalues.add("nom du produit");
-        tvalues.add("taille");
-        tvalues.add("capital");
-        tvalues.add("income");
-        tvalues.add("outcome");
+        tvalues.add("Nom du produit");
+        tvalues.add("Quantité");
+        tvalues.add("Taille");
+        tvalues.add("Capital");
+        tvalues.add("Income");
+        tvalues.add("Outcome");
         ObservableList<String> type = FXCollections.observableArrayList(tvalues);
 
         //Affichage
@@ -188,7 +206,9 @@ public class FirstPageController implements LoadindFXML {
 
     public void Poppup()
         {
+            lblPrices.setText("Update : " + SelectedProduct.get(1));
             APpopup.setVisible(true);
+            lblListedeproduit.setVisible(false);
             btn1.setVisible(false);
             btn2.setVisible(false);
             btn3.setVisible(false);
@@ -199,8 +219,10 @@ public class FirstPageController implements LoadindFXML {
 
     public void Cancel()
     {
+        lblPrices.setText("Prices");
         APpopup.setVisible(false);
         Panebackground.setVisible(true);
+        lblListedeproduit.setVisible(true);
         btn1.setVisible(true);
         btn2.setVisible(true);
         btn3.setVisible(true);
@@ -210,6 +232,78 @@ public class FirstPageController implements LoadindFXML {
     }
     public void submit() throws SQLException
     {
-        //A ecrire
+        String new_data = txtFNouveauchamp.getText();
+        String column = cmbType.getValue();
+        int id = Integer.valueOf(SelectedProduct.get(0));
+        if(column != null && new_data != "")
+        {
+            PipelineProductListQueries.InitializeAllList();
+            if(column == "Nom du produit" ||column == "Quantité" ||column == "Taiile")
+            {
+                for (int i = 0; i < PipelineProductListQueries.listQueriesTableProduct.size(); i++)
+                {
+                    if (PipelineProductListQueries.listQueriesTableProduct.get(i).getId() == id)
+                    {
+                        if (column == "Nom du produit")
+                            MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),new_data,"stock");
+
+                        if (column == "Quantité") {
+                            try {
+                                int quantity = Integer.valueOf(new_data);
+                                PipelineProductListQueries.listQueriesTableProduct.get(i).setStock(quantity);
+                                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),quantity,"stock");
+                            } catch (NumberFormatException e)
+                            {
+                                System.out.println("erreur format quantité");
+                            }
+
+                        }
+                        if (column == "Taille") {
+                            try {
+                                Double size = Double.valueOf(new_data);
+                                PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(size);
+                                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),size,"specialAttribute");
+                            } catch (NumberFormatException e)
+                            {
+                                System.out.println("erreur format Taille");
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size(); i++) {
+                    if (PipelineProductListQueries.listQueriesTableProductPrices.get(i).getId() == id) {
+                        if (column == "Capital") {
+                            try {
+                                Double capital = Double.valueOf(new_data);
+                                PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(capital);
+                            } catch (NumberFormatException e) {
+                                System.out.println("erreur format capital");
+                            }
+                        }
+                        if (column == "Prix d'achat") {
+                            try {
+                                Double purchase = Double.valueOf(new_data);
+                                PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(purchase);
+                                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i),purchase,"income");
+                            } catch (NumberFormatException e) {
+                                System.out.println("erreur format Prix d'achat");
+                            }
+                        }
+                        if (column == "Prix de vente") {
+                            try {
+                                Double sell = Double.valueOf(new_data);
+                                PipelineProductListQueries.listQueriesTableProduct.get(i).setSpecialAttribute(sell);
+                                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProductPrices.get(i),sell,"outcome");
+                            } catch (NumberFormatException e) {
+                                System.out.println("erreur format Prix de vente");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
