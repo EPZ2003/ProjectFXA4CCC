@@ -1,5 +1,6 @@
 package controllersPackage;
 import BackToFrontLinked.PipelineProductListQueries;
+import SQLModule.MySQLOperations;
 import SQLModule.Queries;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -100,7 +101,9 @@ public class AddProductPageController implements LoadindFXML, Initializable {
         btnsubmitAddProduct.setDisable(false);
     }
     public void submitAllField(ActionEvent event){
+
         try{
+            ThirdPageController.addProduct ++;
             lblDisplayError.setText("");
             ArrayList<String> productList = new ArrayList<>();
             ArrayList<String> productPricesList = new ArrayList<>();
@@ -128,6 +131,7 @@ public class AddProductPageController implements LoadindFXML, Initializable {
             btnsubmitAddProduct.setDisable(true);
             lblSuccesProduct.setText("Produit Enregistré veuillez\n revenir a l'inventaire");
             btnCancel.setText("Revenir à l'inventaire");
+
         } catch (Exception e) {
             lblDisplayError.setText(e.toString());
         }
@@ -145,7 +149,7 @@ public class AddProductPageController implements LoadindFXML, Initializable {
         Queries prices = new Queries(
                 Float.valueOf(productPricesList.get(0)),
                 Double.valueOf(productPricesList.get(1)),
-                Double.valueOf(productList.get(2))
+                Double.valueOf(productPricesList.get(2))
         );
         PipelineProductListQueries.PipelineQueries(product);
         PipelineProductListQueries.PipelineQueries(prices);

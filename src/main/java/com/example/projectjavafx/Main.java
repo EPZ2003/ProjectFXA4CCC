@@ -7,12 +7,14 @@ import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
 import WomenShopClasses.Shoes;
+import controllersPackage.ThirdPageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -32,12 +34,13 @@ public class Main extends Application {
             stage.show();
 
 //TEST A-23
-            PipelineProductListQueries.PipelineProductListQueries(new Shoes("poeoepeeppe",34.01,32.02,40.5));
-            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
-
-            MySQLOperations.update(test,34343243,"stock");
-            System.out.println(test.getStock());
-            //System.out.println(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.getLast()));
+            /*PipelineProductListQueries.listQueriesTableProductPrices.forEach(e -> {
+                try {
+                    System.out.println(MySQLOperations.read(e));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });*/
 
 
         } catch (Exception e) {
@@ -46,7 +49,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        ThirdPageController.setAddProduct(0);
 
 
         launch();
