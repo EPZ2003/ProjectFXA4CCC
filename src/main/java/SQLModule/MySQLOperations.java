@@ -11,9 +11,9 @@ public class MySQLOperations {
 
     public static void addRow(Queries sql){
         try{
-            if (sql.getTableName() == Queries.TABLE_MONEY){
+           /* if (sql.getTableName() == Queries.TABLE_MONEY){
                 throw new Exception("Bad table");
-            }
+            }*/
 
             Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
             PreparedStatement preparedStatement = conn.prepareStatement(sql.addRow());
