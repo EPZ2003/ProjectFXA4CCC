@@ -79,7 +79,7 @@ public class ThirdPageController implements LoadindFXML {
     }
 
     public static ArrayList<ArrayList<String>> refreshPrices() throws SQLException{
-    setPrices(new ArrayList<>());
+        setPrices(new ArrayList<>());
         int id = 1;
         ArrayList<ArrayList<String>> listToReturn = getPrices();
         for (Queries sql : PipelineProductListQueries.listQueriesTableProductPrices){

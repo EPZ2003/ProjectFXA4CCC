@@ -21,5 +21,8 @@
       <TextArea fx:id="txtAVinfo" disable="true" editable="false" layoutX="329.0" layoutY="176.0" prefHeight="113.0" prefWidth="200.0" text="Informations : &#10;&#10;" />
       <Label layoutX="81.0" layoutY="97.0" text="Liste de produit" />
       <Button fx:id="btnAddProduct" layoutX="474.0" layoutY="320.0" mnemonicParsing="false" onAction="#goToAddProductPage" text="AddProduct" />
+      <Button fx:id="btnUpdate" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToPopUp" text="Mettre à jour une valueur" textFill="#0086bf" />
+      <Button fx:id="btnAdd" layoutX="329.0" layoutY="142.0" mnemonicParsing="false" onAction="#addStock" text="ADD" textFill="#028a0f" />
+      <Button fx:id="btnThrow" layoutX="474.0" layoutY="142.0" mnemonicParsing="false" onAction="#throwStock" text="THROW" textFill="#b20000" />
    </children>
 </Pane>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="194.0" prefWidth="248.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllersPackage.UpdatePageController">
+   <children>
+      <TextField fx:id="txtAColumnName" layoutX="75.0" layoutY="44.0" />
+      <TextField fx:id="txtAValue" layoutX="75.0" layoutY="87.0" />
+      <Label fx:id="lblColumnName" layoutX="7.0" layoutY="39.0" prefHeight="35.0" prefWidth="60.0" text="Nom de la colonne " />
+      <Label fx:id="lblValue" layoutX="14.0" layoutY="80.0" prefHeight="35.0" prefWidth="60.0" text="valeur souhaité" />
+      <Button fx:id="btnSubmit" layoutX="182.0" layoutY="147.0" mnemonicParsing="false" onAction="#submited" text="Submit" />
+      <Label fx:id="lblError" layoutX="14.0" layoutY="123.0" prefHeight="61.0" prefWidth="164.0" />
+      <Button fx:id="btnGoBack" layoutX="222.0" layoutY="2.0" mnemonicParsing="false" onAction="#goToFirstPage" text="X" textFill="RED" />
+   </children>
+</AnchorPane>

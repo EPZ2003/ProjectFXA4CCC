@@ -1,6 +1,9 @@
 package controllersPackage;
 
+import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
+import SQLModule.MySQLOperations;
+import SQLModule.Queries;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -10,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,13 +23,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class FirstPageController implements LoadindFXML {
+import static controllersPackage.ThirdPageController.addProduct;
+
+public class FirstPageController implements LoadindFXML, Initializable {
     Scene scene;
     Stage stage;
+    @FXML
+    private Button btnAdd;
+
     @FXML
     private Button btnAddProduct;
 
@@ -39,16 +50,29 @@ public class FirstPageController implements LoadindFXML {
     private Button btnPage3;
 
     @FXML
-    private Label lblStorage;
+    private Button btnThrow;
 
     @FXML
-    private Label lblErrorStorage;
+    private Button btnUpdate;
 
     @FXML
-    public ListView<Product> lstVproduit;
+    private Label lblPrices;
+
+    @FXML
+    private ListView<ArrayList<String>> lstVproduit;
 
     @FXML
     private TextArea txtAVinfo;
+
+    public static ArrayList<ArrayList<String>> product = new ArrayList<>();
+
+    public static ArrayList<ArrayList<String>> getProduct() {
+        return product;
+    }
+
+    public static void setProduct(ArrayList<ArrayList<String>> product) {
+        FirstPageController.product = product;
+    }
 
     public void goToHomePage(ActionEvent event) {
         loadingFXML("homePage.fxml",event);
@@ -58,7 +82,7 @@ public class FirstPageController implements LoadindFXML {
     }
     public void goToThirdPage(ActionEvent event) {
 
-            loadingFXML("thirdPage.fxml",event);
+        loadingFXML("thirdPage.fxml",event);
 
 
     }
@@ -78,31 +102,92 @@ public class FirstPageController implements LoadindFXML {
             displayError();
         }
     }
-
-    public void initialize() {
-        List<Product> produits = new ArrayList<>();
-        produits.add(new Accessory("cora",49.99,59.99));
-        produits.add(new Shoes("balenciaga",499.99,759.99,42.5));
-        produits.add(new Clothes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("adidas",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        produits.add(new Clothes("newbalance",19.99,79.99,42.5));
-        produits.add(new Shoes("nike",59.99,79.99,42.5));
-        produits.add(new Clothes("reebook",59.99,79.99,42.5));
-        ObservableList<Product> prods= FXCollections.observableArrayList(produits);
-
-        lstVproduit.setItems(prods);
-        lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails(lstVproduit.getSelectionModel().getSelectedItem()));
+    public static ArrayList<ArrayList<String>> refreshProduct() throws SQLException{
+        setProduct(new ArrayList<>());
+        int id = 1;
+        ArrayList<ArrayList<String>> listToReturn = getProduct();
+        for (Queries sql : PipelineProductListQueries.listQueriesTableProduct){
+            listToReturn.add(MySQLOperations.readForRefresh(sql,id,addProduct));
+            id++;
+        }
+        return listToReturn;
     }
+
 
     public void displayError(){
-        lblErrorStorage.setText("Error !");
+        txtAVinfo.setText("Error !");
     }
 
 
-    private void displayProductDetails(Product selectedProduct) {
+    private void displayProductDetails(ArrayList<String> selectedProduct) {
         if(selectedProduct!=null){
-            txtAVinfo.setText("nom : "+selectedProduct.getName()+"\nprix d'achat : "+selectedProduct.getPurchasePrice()+"\nprix de vente : "+selectedProduct.getSellPrice()+"\nquantité : "+selectedProduct.getNbItems());
+            txtAVinfo.setText("nom : "+selectedProduct.get(1)+"\nstock : "+selectedProduct.get(2)+"\nspecialeAttribut : "+selectedProduct.get(3));
         }
     }
+    @FXML
+    public void throwStock(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void btnAdd(){
+
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ObservableList<ArrayList<String>> prods = null;
+        try {
+            prods = FXCollections.observableArrayList(refreshProduct());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        lstVproduit.setItems(prods);
+
+        lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails( (ArrayList<String>) lstVproduit.getSelectionModel().getSelectedItem()));
+
+    }
+
+    public void goToPopUp(ActionEvent event) {
+        loadingFXML("updatePage.fxml",event);
+    }
+
+    public void addStock(ActionEvent event) throws SQLException {
+        // Récupérer l'élément sélectionné dans la ListView
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
+
+        // Si un produit est sélectionné, appeler la méthode purchase
+        if (selectedProduct != null) {
+            addStockItem(selectedProduct);
+            System.out.println("produit vendu");
+        }
+        loadingFXML("firstPage.fxml",event);
+    }
+
+    public void addStockItem(ArrayList<String> selectedProduct) throws SQLException {
+        PipelineProductListQueries.InitializeAllList();
+
+        int id = Integer.valueOf(selectedProduct.get(0));
+        System.out.println(id);
+        /*for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
+        {
+            System.out.println(MySQLOperations.readForRefresh(PipelineProductListQueries.listQueriesTableProduct.get(i),id,addProduct) + "//");
+            if (id == Integer.valueOf(MySQLOperations.read( PipelineProductListQueries.listQueriesTableProduct.get(i)).get(0) ))
+            {
+                //System.out.println("Queries :" + MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.get(i)) + " changeValue :"+PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1 + " columnName :" + "stock");
+                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1,"stock");
+                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"outcome");
+                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"capital");
+                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),PipelineProductListQueries.listQueriesTableProduct.get(i).getStock() + 1,"stock" );
+
+            }
+        }*/
+        ArrayList<String> t = (MySQLOperations.readForRefresh(PipelineProductListQueries.listQueriesTableProduct.get(id),id,addProduct));
+
+        System.out.println();
+        //MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(id),PipelineProductListQueries.listQueriesTableProduct.get(id).getStock() + 1,"stock");
+
+
+    }
+
 }

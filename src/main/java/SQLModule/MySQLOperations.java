@@ -97,6 +97,20 @@ public class MySQLOperations {
         }
         return row;
     }
+    public static void updateById(Queries sql, int id) throws SQLException {
+
+
+        ArrayList<String> row = new ArrayList<String>();
+        Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        Statement stmt = conn.createStatement();
+        String query = (sql.getTableName() == Queries.TABLE_PRODUCT) ? "select * from "+sql.getTableName()+" where id ="+id+";" : "select * from "+sql.getTableName()+" where id_product ="+id+";";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+        preparedStatement.execute();
+        //Update All Attributes
+        updateAllColumnAttributes(sql);
+        preparedStatement.close();
+    }
     public static ArrayList<String> readForRefresh (Queries sql,int id,int addProduct) throws SQLException{
         int i = 0;
         if (sql.getTableName() == Queries.TABLE_PRODUCT_PRICES){
