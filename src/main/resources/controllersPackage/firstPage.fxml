@@ -12,7 +12,7 @@
       <Button fx:id="btnHomePage" layoutX="392.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToHomePage" text="HomePage" />
       <Button fx:id="btnPage2" layoutX="474.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToSecondPage" text="Page 2" />
       <Button fx:id="btnPage3" layoutX="534.0" layoutY="361.0" mnemonicParsing="false" onAction="#goToThirdPage" text="Page 3" />
-      <Label fx:id="lblStorage" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="22.0" prefHeight="75.0" prefWidth="210.0" text="Storage">
+      <Label fx:id="lblPrices" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="22.0" prefHeight="75.0" prefWidth="210.0" text="Prices">
          <font>
             <Font size="52.0" />
          </font>
@@ -20,6 +20,6 @@
       <ListView fx:id="lstVproduit" layoutX="70.0" layoutY="132.0" prefHeight="200.0" prefWidth="200.0" />
       <TextArea fx:id="txtAVinfo" disable="true" editable="false" layoutX="329.0" layoutY="176.0" prefHeight="113.0" prefWidth="200.0" text="Informations : &#10;&#10;" />
       <Label layoutX="81.0" layoutY="97.0" text="Liste de produit" />
-      <Label fx:id="lblErrorStorage" layoutX="42.0" layoutY="344.0" prefHeight="47.0" prefWidth="151.0" />
+      <Button fx:id="btnAddProduct" layoutX="474.0" layoutY="320.0" mnemonicParsing="false" onAction="#goToAddProductPage" text="AddProduct" />
    </children>
 </Pane>
