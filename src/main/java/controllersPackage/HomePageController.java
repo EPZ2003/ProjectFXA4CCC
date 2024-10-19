@@ -1,5 +1,6 @@
 package controllersPackage;
 
+import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,11 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import WomenShopClasses.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static WomenShopClasses.Product.*;
 
 public class HomePageController implements LoadindFXML {
 
@@ -41,6 +45,15 @@ public class HomePageController implements LoadindFXML {
     @FXML
     private Label lblTitle;
 
+    @FXML
+    private Label lblInstructions;
+
+    @FXML
+    private TextArea txtACapital;
+
+    @FXML
+    private Button btnConfirmCapital;
+
     public void goToFirstPage(ActionEvent event) {
         loadingFXML("firstPage.fxml",event);
     }
@@ -67,5 +80,20 @@ public class HomePageController implements LoadindFXML {
     public void displayError(){
         lblErrorHomePage.setText("Error !");
     }
+
+
+
+    public void enterCapital(){
+        try
+        {
+            PipelineProductListQueries.initializeMoneyPipeline(Double.valueOf(txtACapital.getText()));
+        }
+        catch (Exception e)
+        {
+            displayError();
+        }
+    }
+
+
 
 }
