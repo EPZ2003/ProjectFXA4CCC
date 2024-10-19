@@ -100,7 +100,7 @@ public class MySQLOperations {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
         while (rs.next()){
-            listToReturn.add (new Queries(rs.getDouble("capital"),rs.getDouble("income"),rs.getDouble("outcome")) );
+            listToReturn.add(new Queries(rs.getDouble("capital"),rs.getDouble("income"),rs.getDouble("outcome")) );
             System.out.println(listToReturn);
         }
         return listToReturn;
