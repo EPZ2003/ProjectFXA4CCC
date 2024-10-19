@@ -4,9 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Queries  {
-    static final String TABLE_PRODUCT = "projetjavafx.table_products";
-    static final String TABLE_PRODUCT_PRICES = "projetjavafx.table_products_prices" ;
-    static final String TABLE_MONEY = "projetjavafx.table_money" ;
+    public static final String TABLE_PRODUCT = "projetjavafx.table_products";
+    public static final String TABLE_PRODUCT_PRICES = "projetjavafx.table_products_prices" ;
+    public static final String TABLE_MONEY = "projetjavafx.table_money" ;
 
     //Use to know which table are related to the query
     private String tableName = "projetjavafx.table_money";
@@ -159,9 +159,9 @@ public class Queries  {
     }
 
     public <T> String udpate (T changeValue,String columnName) {
-        if (this.getTableName() == Queries.TABLE_PRODUCT )return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+"'"+changeValue+"'" +" where id = "+this.getId()+";";
-        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+ changeValue +" where id_products = "+this.getIdProducts()+";";
-        else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+"'"+columnName+"'"+"="+ changeValue;
+        if (this.getTableName() == Queries.TABLE_PRODUCT )return " update "+this.getTableName()+" set "+columnName+"="+"'"+changeValue+"'" +" where id = "+this.getId()+";";
+        else if (this.getTableName() == Queries.TABLE_PRODUCT_PRICES) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue +" where id_products = "+this.getIdProducts()+";";
+        else if (this.getTableName() == Queries.TABLE_MONEY) return " update "+this.getTableName()+" set "+columnName+"="+ changeValue;
         else return "";
     }
 

@@ -26,12 +26,17 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(homePagePath));
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
             stage.setScene(scene);
+
             stage.show();
 
 //TEST A-23
             PipelineProductListQueries.PipelineProductListQueries(new Shoes("poeoepeeppe",34.01,32.02,40.5));
-            //Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
+            Queries test = PipelineProductListQueries.listQueriesTableProduct.get(0);
+
+            MySQLOperations.update(test,34343243,"stock");
+            System.out.println(test.getStock());
             //System.out.println(MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.getLast()));
 
 

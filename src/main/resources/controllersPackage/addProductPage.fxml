@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllersPackage.AddProductPageController">
+   <children>
+      <TextField fx:id="textABrandAddProduct" layoutX="125.0" layoutY="115.0" />
+      <Label fx:id="lblTitleAddProduct" alignment="CENTER" layoutX="137.0" layoutY="14.0" prefHeight="54.0" prefWidth="307.0" text="Add Product ">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblBrand" layoutX="50.0" layoutY="111.0" text="brand" />
+      <TextField fx:id="textAPPriceAddProduct" layoutX="125.0" layoutY="154.0" />
+      <Label fx:id="lblPurchasePrice" layoutX="27.0" layoutY="158.0" text="purchase price" />
+      <TextField fx:id="textASellPriceAddProduct" layoutX="365.0" layoutY="115.0" />
+      <Label layoutX="300.0" layoutY="119.0" text="sell price" />
+      <TextField fx:id="textASpecialProduct" disable="true" layoutX="353.0" layoutY="239.0" />
+      <Label fx:id="lblSpecialProduct" alignment="CENTER" disable="true" layoutX="257.0" layoutY="215.0" prefHeight="72.0" prefWidth="87.0" />
+      <Button fx:id="btnsubmitAddProduct" layoutX="532.0" layoutY="354.0" mnemonicParsing="false" onAction="#submitAllField" text="Submit" />
+      <Button fx:id="btnCancel" layoutX="18.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToFirstPage" text="Annulez l'opération" />
+      <ChoiceBox fx:id="cBxCategories" layoutX="78.0" layoutY="238.0" prefWidth="150.0" />
+      <Label fx:id="lblSuccesProduct" alignment="CENTER" layoutX="381.0" layoutY="286.0" prefHeight="54.0" prefWidth="205.0" />
+      <Label fx:id="lblDisplayError" alignment="CENTER" layoutX="23.0" layoutY="286.0" prefHeight="54.0" prefWidth="322.0" />
+   </children>
+</Pane>

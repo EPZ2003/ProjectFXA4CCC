@@ -58,5 +58,13 @@ public class PipelineProductListQueries {
 
 
     }
+    public static void PipelineQueries (Queries queries){
+        MySQLOperations.addRow(queries);
+        if (queries.getTableName() == Queries.TABLE_PRODUCT){
+            listQueriesTableProduct.add(queries);
+        } else if (queries.getTableName() == Queries.TABLE_PRODUCT_PRICES) {
+            listQueriesTableProductPrices.add(queries);
+        }
+    }
 
 }
