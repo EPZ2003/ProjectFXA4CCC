@@ -6,6 +6,7 @@ import BackToFrontLinked.PipelineProductListQueries;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static controllersPackage.ThirdPageController.addProduct;
 
 
 public class MySQLOperations {
@@ -76,6 +77,7 @@ public class MySQLOperations {
 
         preparedStatement.execute();
         //Update All Attributes
+
         updateAllColumnAttributes(sql);
         preparedStatement.close();
     }
@@ -97,18 +99,20 @@ public class MySQLOperations {
         }
         return row;
     }
-    public static void updateById(Queries sql, int id) throws SQLException {
+    public  static <T>  void updateById(Queries sql, int id,String columnName,T value ) throws SQLException {
 
-
+        System.out.println(value+"VALUE");
         ArrayList<String> row = new ArrayList<String>();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
-        String query = (sql.getTableName() == Queries.TABLE_PRODUCT) ? "select * from "+sql.getTableName()+" where id ="+id+";" : "select * from "+sql.getTableName()+" where id_product ="+id+";";
+        String query = (sql.getTableName() == Queries.TABLE_PRODUCT) ?  "UPDATE projetjavafx.table_products SET "       +columnName+" = "+ value+" WHERE id ="+ id:
+                                                                        "UPDATE projetjavafx.table_products_prices SET "+columnName+" = "+ value+" WHERE id_product ="+ id;
+
         PreparedStatement preparedStatement = conn.prepareStatement(query);
 
         preparedStatement.execute();
         //Update All Attributes
-        updateAllColumnAttributes(sql);
+
         preparedStatement.close();
     }
     public static ArrayList<String> readForRefresh (Queries sql,int id,int addProduct) throws SQLException{
@@ -185,6 +189,7 @@ public class MySQLOperations {
 
     public static void updateAllColumnAttributes(Queries sql) throws SQLException{
         ArrayList<String> returnRead = MySQLOperations.read(sql);
+        System.out.println(returnRead);
         if (sql.getTableName() == Queries.TABLE_PRODUCT){
             sql.setId(Integer.parseInt(returnRead.get(0)));
             sql.setProductName(returnRead.get(1));

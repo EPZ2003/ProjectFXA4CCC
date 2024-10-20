@@ -3,6 +3,7 @@ package com.example.projectjavafx;
 import BackToFrontLinked.PipelineProductListQueries;
 import SQLModule.MySQLOperations;
 import SQLModule.Queries;
+import SQLModule.SQLCommand;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -35,17 +36,12 @@ public class Main extends Application {
             stage.setScene(scene);
 
             stage.show();
-            //MySQLOperations.linkedQnTMoney();
-//TEST A-23
-            /*PipelineProductListQueries.listQueriesTableProductPrices.forEach(e -> {
-                try {
-                    System.out.println(MySQLOperations.read(e));
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-            });*/
+
             listQueriesTableMoney.add(new Queries(100.00,100.00,1.00));
 
+            System.out.println(SQLCommand.readTablePrices().get(0));
+            System.out.println(SQLCommand.readTableProduct().get(0));
+            System.out.println(SQLCommand.readTableMoney().get(0));
         } catch (Exception e) {
             System.out.println(e);
         }

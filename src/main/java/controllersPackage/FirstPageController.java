@@ -4,6 +4,7 @@ import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
 import SQLModule.MySQLOperations;
 import SQLModule.Queries;
+import SQLModule.SQLCommand;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -124,15 +125,6 @@ public class FirstPageController implements LoadindFXML, Initializable {
             txtAVinfo.setText("nom : "+selectedProduct.get(1)+"\nstock : "+selectedProduct.get(2)+"\nspecialeAttribut : "+selectedProduct.get(3));
         }
     }
-    @FXML
-    public void throwStock(ActionEvent event) {
-
-    }
-
-    @FXML
-    public void btnAdd(){
-
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -166,27 +158,26 @@ public class FirstPageController implements LoadindFXML, Initializable {
 
     public void addStockItem(ArrayList<String> selectedProduct) throws SQLException {
         PipelineProductListQueries.InitializeAllList();
-
         int id = Integer.valueOf(selectedProduct.get(0));
-        System.out.println(id);
-        /*for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
-        {
-            System.out.println(MySQLOperations.readForRefresh(PipelineProductListQueries.listQueriesTableProduct.get(i),id,addProduct) + "//");
-            if (id == Integer.valueOf(MySQLOperations.read( PipelineProductListQueries.listQueriesTableProduct.get(i)).get(0) ))
-            {
-                //System.out.println("Queries :" + MySQLOperations.read(PipelineProductListQueries.listQueriesTableProduct.get(i)) + " changeValue :"+PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1 + " columnName :" + "stock");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1,"stock");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"outcome");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"capital");
-                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i),PipelineProductListQueries.listQueriesTableProduct.get(i).getStock() + 1,"stock" );
+        SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) + 1);
 
-            }
-        }*/
-        ArrayList<String> t = (MySQLOperations.readForRefresh(PipelineProductListQueries.listQueriesTableProduct.get(id),id,addProduct));
+    }
+    @FXML
+    public void throwStock(ActionEvent event) throws SQLException {
+        // Récupérer l'élément sélectionné dans la ListView
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
 
-        System.out.println();
-        //MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(id),PipelineProductListQueries.listQueriesTableProduct.get(id).getStock() + 1,"stock");
-
+        // Si un produit est sélectionné, appeler la méthode purchase
+        if (selectedProduct != null) {
+            throwStockItem(selectedProduct);
+            System.out.println("produit vendu");
+        }
+        loadingFXML("firstPage.fxml",event);
+    }
+    public void throwStockItem(ArrayList<String> selectedProduct) throws SQLException {
+        PipelineProductListQueries.InitializeAllList();
+        int id = Integer.valueOf(selectedProduct.get(0));
+        SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) - 1);
 
     }
 
