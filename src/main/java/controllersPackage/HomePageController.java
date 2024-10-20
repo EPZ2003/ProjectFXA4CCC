@@ -94,11 +94,8 @@ public class HomePageController implements LoadindFXML, Initializable {
 
     public void enterCapital() throws SQLException {
 
-        SQLCommand.updateTableMoney("income", Double.valueOf(txtACapital.getText()));
-        Double outcome = Double.valueOf(SQLCommand.readTableMoney().get(0).get(2));
         Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
-        SQLCommand.updateTableMoney("capital", income - outcome + Double.valueOf(txtACapital.getText()));
-        SQLCommand.updateTableMoney("income",income +  Double.valueOf(txtACapital.getText()) );
+        SQLCommand.updateTableMoney("income",  income + Double.valueOf(txtACapital.getText() ) );
         txtACapital.setDisable(true);
 
     }

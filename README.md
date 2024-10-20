@@ -87,6 +87,41 @@ capital double,
 income double,
 outcome double
 );
+
+INSERT INTO table_products (product_name, stock, specialAttribute) VALUES
+('Product 1', 100, 12.5),
+('Product 2', 200, 15.0),
+('Product 3', 50, 9.8),
+('Product 4', 300, 17.2),
+('Product 5', 120, 11.3),
+('Product 6', 180, 14.9),
+('Product 7', 75, 13.4),
+('Product 8', 220, 8.7),
+('Product 9', 60, 16.1),
+('Product 10', 90, 10.5),
+('Product 11', 250, 14.1),
+('Product 12', 110, 12.3),
+('Product 13', 190, 13.9),
+('Product 14', 80, 15.7),
+('Product 15', 140, 11.6);
+
+INSERT INTO table_products_prices (discount, sellPrice, purchasePrice) VALUES
+(5.0, 120.0, 80.0),
+(10.0, 200.0, 150.0),
+(7.5, 95.0, 60.0),
+(15.0, 250.0, 180.0),
+(8.0, 140.0, 100.0),
+(12.0, 180.0, 130.0),
+(6.0, 105.0, 75.0),
+(10.0, 220.0, 170.0),
+(9.0, 150.0, 100.0),
+(7.0, 110.0, 70.0),
+(12.5, 230.0, 160.0),
+(5.5, 130.0, 90.0),
+(11.0, 190.0, 140.0),
+(9.5, 170.0, 120.0),
+(6.5, 150.0, 100.0);
+
 ___
 ## Feature of all the pages and theirs features
 This tables constitute the different pages of the project : 

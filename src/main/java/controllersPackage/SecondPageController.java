@@ -91,21 +91,18 @@ public class SecondPageController implements LoadindFXML, Initializable {
     }
 
 
-public void refreshSecondPage() throws SQLException{
-        Double outcome = Double.valueOf(SQLCommand.readTableMoney().get(0).get(2));
-    Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
-    Double capital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
-    //SQLCommand.updateTableMoney("capital",capital);
-    lblResultCapital.setText(income - outcome   + " $");
-    lblResultOutcome.setText(String.valueOf(outcome+ " $"));
-    lblResultIncome.setText(String.valueOf(income+ " $"));
-}
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         try{
-            refreshSecondPage();
+            Double outcome = Double.valueOf(SQLCommand.readTableMoney().get(0).get(2));
+            Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
+            Double capital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
+            //SQLCommand.updateTableMoney("capital",capital);
+            SQLCommand.updateTableMoney("capital",income - outcome);
+            lblResultCapital.setText(income - outcome   + " $");
+            lblResultOutcome.setText(String.valueOf(outcome+ " $"));
+            lblResultIncome.setText(String.valueOf(income+ " $"));
 
         }catch (Exception err){
             displayError();

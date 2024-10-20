@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static controllersPackage.ThirdPageController.addProduct;
+import static controllersPackage.UpdatePageController.idChoosen;
 
 public class FirstPageController implements LoadindFXML, Initializable {
     Scene scene;
@@ -143,7 +144,12 @@ public class FirstPageController implements LoadindFXML, Initializable {
     }
 
     public void goToPopUp(ActionEvent event) {
+        ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
+        int id = Integer.valueOf(selectedProduct.get(0));
+        idChoosen = id;
+        System.out.println(id);
         loadingFXML("updatePage.fxml",event);
+
     }
 
     public void addStock(ActionEvent event) throws SQLException {
