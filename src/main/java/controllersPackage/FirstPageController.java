@@ -130,7 +130,7 @@ public class FirstPageController implements LoadindFXML, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<ArrayList<String>> prods = null;
         try {
-            prods = FXCollections.observableArrayList(refreshProduct());
+            prods = FXCollections.observableArrayList(SQLCommand.readTableProduct());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -151,7 +151,6 @@ public class FirstPageController implements LoadindFXML, Initializable {
         // Si un produit est sélectionné, appeler la méthode purchase
         if (selectedProduct != null) {
             addStockItem(selectedProduct);
-            System.out.println("produit vendu");
         }
         loadingFXML("firstPage.fxml",event);
     }
