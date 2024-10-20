@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33e5fbfb-de58-4f8f-a1e0-a4e5b502a046" name="Changes" comment="Initial commit" />
+    <list default="true" id="33e5fbfb-de58-4f8f-a1e0-a4e5b502a046" name="Changes" comment="V1 JAVAFX">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllersPackage/FirstPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllersPackage/FirstPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllersPackage/ThirdPageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllersPackage/ThirdPageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/controllersPackage/firstPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/controllersPackage/firstPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/controllersPackage/homePage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/controllersPackage/homePage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/controllersPackage/secondPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/controllersPackage/secondPage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/controllersPackage/thirdPage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/controllersPackage/thirdPage.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,12 +87,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Florent/Documents/ESILVPROJET/ProjectFXA4CCC",
+    "last_opened_file_path": "C:/Users/Florent/Downloads/mysql-connector-j-9.0.0/mysql-connector-j-9.0.0/mysql-connector-j-9.0.0.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -137,13 +149,36 @@
       <option name="project" value="LOCAL" />
       <updated>1728744737530</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="V1 JAVAFX">
+      <option name="closed" value="true" />
+      <created>1729428894293</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729428894293</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -169,6 +204,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="FINIT PLUS QUE FORMATAGE" />
+    <MESSAGE value="V1 JAVAFX" />
+    <option name="LAST_COMMIT_MESSAGE" value="V1 JAVAFX" />
   </component>
 </project>

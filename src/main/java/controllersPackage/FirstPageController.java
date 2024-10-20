@@ -18,10 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -138,6 +135,18 @@ public class FirstPageController implements LoadindFXML, Initializable {
             throw new RuntimeException(e);
         }
         lstVproduit.setItems(prods);
+
+        lstVproduit.setCellFactory(param -> new ListCell<ArrayList<String>>() {
+            @Override
+            protected void updateItem(ArrayList<String> item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.get(1) + " ("+item.get(2)+")");
+                }
+            }
+        });
 
         lstVproduit.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails( (ArrayList<String>) lstVproduit.getSelectionModel().getSelectedItem()));
 

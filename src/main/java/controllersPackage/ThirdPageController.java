@@ -146,11 +146,31 @@ public class ThirdPageController implements LoadindFXML {
 
 
     public void initialize() throws SQLException {
-
         ObservableList<List<String>> prods = FXCollections.observableArrayList(SQLCommand.readTablePrices());
+
+        // Utilisation d'un CellFactory pour n'afficher que le prix du produit
+        lstVprices.setCellFactory(param -> new ListCell<List<String>>() {
+            @Override
+            protected void updateItem(List<String> item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // On suppose que le prix est le troisième élément de la List
+                    try {
+                        setText(SQLCommand.readTableProduct().get(Integer.valueOf(item.get(0))-1).get(1) + " ( V: "+item.get(2)+" A: "+item.get(3)+")"); // Affiche seulement le prix
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
         lstVprices.setItems(prods);
 
-        lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails((ArrayList<String>) lstVprices.getSelectionModel().getSelectedItem()));
+        lstVprices.getSelectionModel().selectedItemProperty().addListener(e ->
+                displayProductDetails((ArrayList<String>) lstVprices.getSelectionModel().getSelectedItem())
+        );
     }
 
     private void displayProductDetails(ArrayList<String> selectedProduct) {
