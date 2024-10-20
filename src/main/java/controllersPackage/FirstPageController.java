@@ -177,7 +177,9 @@ public class FirstPageController implements LoadindFXML, Initializable {
         PipelineProductListQueries.InitializeAllList();
         int id = Integer.valueOf(selectedProduct.get(0));
         SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) - 1);
-
+        if (Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) < 0){
+            SQLCommand.deleteTableProduct(id);
+        }
     }
 
 }
