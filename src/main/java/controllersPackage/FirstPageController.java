@@ -129,7 +129,9 @@ public class FirstPageController implements LoadindFXML, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<ArrayList<String>> prods = null;
+
         try {
+
             prods = FXCollections.observableArrayList(SQLCommand.readTableProduct());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -152,6 +154,7 @@ public class FirstPageController implements LoadindFXML, Initializable {
         if (selectedProduct != null) {
             addStockItem(selectedProduct);
         }
+
         loadingFXML("firstPage.fxml",event);
     }
 
@@ -177,9 +180,7 @@ public class FirstPageController implements LoadindFXML, Initializable {
         PipelineProductListQueries.InitializeAllList();
         int id = Integer.valueOf(selectedProduct.get(0));
         SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) - 1);
-        if (Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) < 0){
-            SQLCommand.deleteTableProduct(id);
-        }
+
     }
 
 }

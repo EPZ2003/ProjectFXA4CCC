@@ -3,6 +3,7 @@ package controllersPackage;
 import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
 import SQLModule.MySQLOperations;
+import SQLModule.SQLCommand;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,14 +91,26 @@ public class SecondPageController implements LoadindFXML, Initializable {
     }
 
 
-
+public void refreshSecondPage() throws SQLException{
+        Double outcome = Double.valueOf(SQLCommand.readTableMoney().get(0).get(2));
+    Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
+    Double capital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
+    //SQLCommand.updateTableMoney("capital",capital);
+    lblResultCapital.setText(income - outcome   + " $");
+    lblResultOutcome.setText(String.valueOf(outcome+ " $"));
+    lblResultIncome.setText(String.valueOf(income+ " $"));
+}
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(PipelineProductListQueries.listQueriesTableMoney);
-        lblResultCapital.setText(String.valueOf(PipelineProductListQueries.listQueriesTableMoney.getLast().getCapital()) + " $");
-        lblResultOutcome.setText(String.valueOf(PipelineProductListQueries.listQueriesTableMoney.getLast().getOutcome())+ " $");
-        lblResultIncome.setText(String.valueOf(PipelineProductListQueries.listQueriesTableMoney.getLast().getIncome())+ " $");
+
+        try{
+            refreshSecondPage();
+
+        }catch (Exception err){
+            displayError();
+        }
+
 
     }
 }

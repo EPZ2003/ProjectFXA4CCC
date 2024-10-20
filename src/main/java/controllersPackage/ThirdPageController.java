@@ -4,6 +4,7 @@ import BackToFrontLinked.PipelineProductListQueries;
 import GeneralClasses.LoadindFXML;
 import SQLModule.MySQLOperations;
 import SQLModule.Queries;
+import SQLModule.SQLCommand;
 import WomenShopClasses.Accessory;
 import WomenShopClasses.Clothes;
 import WomenShopClasses.Product;
@@ -146,7 +147,7 @@ public class ThirdPageController implements LoadindFXML {
 
     public void initialize() throws SQLException {
 
-        ObservableList<List<String>> prods = FXCollections.observableArrayList(refreshPrices());
+        ObservableList<List<String>> prods = FXCollections.observableArrayList(SQLCommand.readTablePrices());
         lstVprices.setItems(prods);
 
         lstVprices.getSelectionModel().selectedItemProperty().addListener(e-> displayProductDetails((ArrayList<String>) lstVprices.getSelectionModel().getSelectedItem()));
@@ -160,36 +161,33 @@ public class ThirdPageController implements LoadindFXML {
 
     public void purchaseItem(ArrayList<String> selectedProduct) throws SQLException
     {   PipelineProductListQueries.InitializeAllList();
-            int id = Integer.valueOf(selectedProduct.get(0));
-            for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
-            {
+        int id = Integer.valueOf(selectedProduct.get(0));
+        SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) + 1);
 
-                if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
-                {
-                    MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()+1,"stock");
-                    //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getOutcome() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"outcome");
-                    //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getPurchasePrice(),"capital");
-
-                }
-            }
+        Double outcome = Double.valueOf(SQLCommand.readTableMoney().get(0).get(2));
+        Double purchasePrice = Double.valueOf(SQLCommand.readTablePrices().get(id-1).get(3));
+        SQLCommand.updateTableMoney("outcome",  outcome + purchasePrice);
+        Double initialCapital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
+        SQLCommand.updateTableMoney("capital",  initialCapital - purchasePrice);
     }
 
 
 
     private void sellItem(ArrayList<String> selectedProduct) throws SQLException
-    {   PipelineProductListQueries.InitializeAllList();
+    {
+        PipelineProductListQueries.InitializeAllList();
         int id = Integer.valueOf(selectedProduct.get(0));
-        for (int i = 0; i < PipelineProductListQueries.listQueriesTableProductPrices.size() ; i++)
-        {
+        SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) - 1);
 
-            if (id == PipelineProductListQueries.listQueriesTableProductPrices.get(i).getIdProducts());
-            {
-                MySQLOperations.update(PipelineProductListQueries.listQueriesTableProduct.get(i), PipelineProductListQueries.listQueriesTableProduct.get(i).getStock()-1,"stock");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getIncome() - PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"income");
-                //MySQLOperations.update(PipelineProductListQueries.listQueriesTableMoney.get(0), PipelineProductListQueries.listQueriesTableMoney.get(0).getCapital() + PipelineProductListQueries.listQueriesTableProductPrices.get(i).getSellPrice(),"capital");
+        Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
+        System.out.println(income);
 
-            }
-        }
+        Double sellPrice = Double.valueOf(SQLCommand.readTablePrices().get(id-1).get(2));
+        System.out.println(sellPrice);
+        SQLCommand.updateTableMoney("income",  income + sellPrice);
+        Double initialCapital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
+        SQLCommand.updateTableMoney("capital",  initialCapital +sellPrice);
+
     }
 
 

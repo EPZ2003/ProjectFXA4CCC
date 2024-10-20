@@ -36,7 +36,7 @@ public class SQLCommand {
     }
 
     public static  ArrayList<ArrayList<String>> readTableProduct() throws SQLException {
-        refreshSQLTableProduct();
+
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_products");
@@ -55,7 +55,7 @@ public class SQLCommand {
     }
 
     public static  ArrayList<ArrayList<String>> readTablePrices() throws SQLException {
-        refreshSQLTablePrices();
+
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_products_prices");
@@ -74,7 +74,7 @@ public class SQLCommand {
     }
 
     public static  ArrayList<ArrayList<String>> readTableMoney() throws SQLException {
-        refreshSQLTableMoney();
+
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
@@ -92,7 +92,7 @@ public class SQLCommand {
     }
 
     public static <T> void updateTableProduct (int id , String columnName,T value) throws SQLException {
-        refreshSQLTableProduct();
+        //refreshSQLTableProduct();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         String command = "UPDATE projetjavafx.table_products SET " + columnName + " = "+value+" WHERE id = "+id;
         PreparedStatement preparedStatement = conn.prepareStatement(command);
@@ -104,7 +104,7 @@ public class SQLCommand {
 
     }
     public static <T> void updateTablePrices (int id , String columnName,T value) throws SQLException {
-        refreshSQLTablePrices();
+        //refreshSQLTablePrices();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         String command = "UPDATE projetjavafx.table_products_prices SET " + columnName + " = "+value+" WHERE id_products = "+id;
         PreparedStatement preparedStatement = conn.prepareStatement(command);
@@ -114,7 +114,7 @@ public class SQLCommand {
 
     }
     public static <T> void updateTableMoney (String columnName,T value) throws SQLException {
-        refreshSQLTableMoney();
+        //refreshSQLTableMoney();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         String command = "UPDATE projetjavafx.table_money SET " + columnName + " = "+value;
         PreparedStatement preparedStatement = conn.prepareStatement(command);
