@@ -100,9 +100,9 @@ public class SecondPageController implements LoadindFXML, Initializable {
             Double capital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
             //SQLCommand.updateTableMoney("capital",capital);
             SQLCommand.updateTableMoney("capital",income - outcome);
-            lblResultCapital.setText(income - outcome   + " $");
-            lblResultOutcome.setText(String.valueOf(outcome+ " $"));
-            lblResultIncome.setText(String.valueOf(income+ " $"));
+            lblResultCapital.setText(Math.round(income - outcome)   + " $");
+            lblResultOutcome.setText(String.valueOf(Math.round(outcome)+ " $"));
+            lblResultIncome.setText(String.valueOf(Math.round(income)+ " $"));
 
         }catch (Exception err){
             displayError();
