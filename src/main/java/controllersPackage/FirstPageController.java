@@ -156,7 +156,6 @@ public class FirstPageController implements LoadindFXML, Initializable {
         ArrayList<String> selectedProduct = (ArrayList<String>)lstVproduit.getSelectionModel().getSelectedItem();
         int id = Integer.valueOf(selectedProduct.get(0));
         idChoosen = id;
-        System.out.println(id);
         loadingFXML("updatePage.fxml",event);
 
     }

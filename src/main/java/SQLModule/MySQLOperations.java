@@ -101,7 +101,7 @@ public class MySQLOperations {
     }
     public  static <T>  void updateById(Queries sql, int id,String columnName,T value ) throws SQLException {
 
-        System.out.println(value+"VALUE");
+
         ArrayList<String> row = new ArrayList<String>();
         Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
         Statement stmt = conn.createStatement();
@@ -122,7 +122,7 @@ public class MySQLOperations {
             sql.setIdProducts(i);
         }else if (sql.getTableName() == Queries.TABLE_PRODUCT ){
             i = id;
-            System.out.println(i);
+
             sql.setId(i);
         }
         ArrayList<String> row = new ArrayList<String>();
@@ -170,7 +170,7 @@ public class MySQLOperations {
         ResultSet rs = stmt.executeQuery("select * from projetjavafx.table_money");
         while (rs.next()){
             listToReturn.add(new Queries(rs.getDouble("capital"),rs.getDouble("income"),rs.getDouble("outcome")) );
-            System.out.println(rs.getDouble("capital")+ ""+rs.getDouble("income")+""+rs.getDouble("outcome"));
+            //System.out.println(rs.getDouble("capital")+ ""+rs.getDouble("income")+""+rs.getDouble("outcome"));
         }
         return listToReturn;
     }
@@ -189,7 +189,7 @@ public class MySQLOperations {
 
     public static void updateAllColumnAttributes(Queries sql) throws SQLException{
         ArrayList<String> returnRead = MySQLOperations.read(sql);
-        System.out.println(returnRead);
+        //System.out.println(returnRead);
         if (sql.getTableName() == Queries.TABLE_PRODUCT){
             sql.setId(Integer.parseInt(returnRead.get(0)));
             sql.setProductName(returnRead.get(1));

@@ -69,14 +69,14 @@ you're commit must be A1 - SceneBuilder set HomePage
 Command to copy to a Query Console to have the different table to use:
 ___
 create table table_products (
-id int auto_incremented primary key,
+id int auto_increment primary key,
 product_name varchar(100),
 stock int,
 specialAttribute double
 );
 
 create table table_products_prices (
-id_products int auto_incremented primary key,
+id_products int auto_increment primary key,
 discount double,
 sellPrice double,
 purchasePrice double

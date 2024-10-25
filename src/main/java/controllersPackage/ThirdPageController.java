@@ -200,10 +200,10 @@ public class ThirdPageController implements LoadindFXML {
         SQLCommand.updateTableProduct(id,"stock",Integer.valueOf(SQLCommand.readTableProduct().get(id-1).get(2)) - 1);
 
         Double income = Double.valueOf(SQLCommand.readTableMoney().get(0).get(1));
-        System.out.println(income);
+
 
         Double sellPrice = Double.valueOf(SQLCommand.readTablePrices().get(id-1).get(2));
-        System.out.println(sellPrice);
+
         SQLCommand.updateTableMoney("income",  income + sellPrice);
         Double initialCapital = Double.valueOf(SQLCommand.readTableMoney().get(0).get(0));
         SQLCommand.updateTableMoney("capital",  initialCapital +sellPrice);

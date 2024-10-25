@@ -39,9 +39,9 @@ public class Main extends Application {
 
             listQueriesTableMoney.add(new Queries(100.00,100.00,1.00));
 
-            System.out.println(SQLCommand.readTablePrices().get(0));
-            System.out.println(SQLCommand.readTableProduct().get(0));
-            System.out.println(SQLCommand.readTableMoney().get(0));
+            //System.out.println(SQLCommand.readTablePrices().get(0));
+            //System.out.println(SQLCommand.readTableProduct().get(0));
+            //System.out.println(SQLCommand.readTableMoney().get(0));
         } catch (Exception e) {
             System.out.println(e);
         }
